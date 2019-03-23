@@ -1,0 +1,29 @@
+version: "3"
+
+services:
+  db:
+    image: postgres:10-alpine
+    environment:
+      - POSTGRES_DB=mbta
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=root
+
+  api:
+    build: ./api/
+    image: mbta-api
+    command: sh -c "dockerize -wait tcp://db:5432 && ./manage.py runserver"
+    volumes:
+      - ./api/:/app/api:rw
+    depends_on:
+      - db
+    ports:
+      - "8000:8000"
+
+  webapp:
+    build: ./webapp/
+    image: mbta-webapp
+    command: sh -c "npm install && npm start"
+    volumes:
+      - ./webapp/:/app/webapp:rw
+    ports:
+      - "3000:3000"
