@@ -1,5 +1,10 @@
 version: "3"
 
+# Use these instead of the local directory for building the projects
+# to prevent the containers from fighting with external build tools
+volumes:
+  node_modules:
+
 services:
   db:
     image: postgres:10-alpine
@@ -11,7 +16,7 @@ services:
   api:
     build: ./api/
     image: mbta-api
-    command: sh -c "dockerize -wait tcp://db:5432 && ./manage.py runserver"
+    command: sh -c "dockerize -wait tcp://db:5432 && ./manage.py runserver 0.0.0.0:8000"
     volumes:
       - ./api/:/app/api:rw
     depends_on:
@@ -20,10 +25,14 @@ services:
       - "8000:8000"
 
   webapp:
-    build: ./webapp/
-    image: mbta-webapp
+    image: node:10-alpine
+    working_dir: /app/webapp
     command: sh -c "npm install && npm start"
     volumes:
       - ./webapp/:/app/webapp:rw
+      - node_modules:/app/webapp/node_modules
+    environment:
+      - NODE_ENV=development
+      - API_HOST=http://api:8000
     ports:
       - "3000:3000"
