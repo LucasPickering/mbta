@@ -17,7 +17,7 @@ RUN wget https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSI
     && tar -C /usr/local/bin -xzvf dockerize-alpine-linux-amd64-$DOCKERIZE_VERSION.tar.gz \
     && rm dockerize-alpine-linux-amd64-$DOCKERIZE_VERSION.tar.gz
 
-WORKDIR /battletrack/
+WORKDIR /app/api/
 
 COPY requirements.txt .
 RUN pip install -U -r requirements.txt

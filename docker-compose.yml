@@ -19,6 +19,8 @@ services:
     command: sh -c "dockerize -wait tcp://db:5432 && ./manage.py runserver 0.0.0.0:8000"
     volumes:
       - ./api/:/app/api:rw
+    environment:
+      - DB_PASSWORD=root
     depends_on:
       - db
     ports:
