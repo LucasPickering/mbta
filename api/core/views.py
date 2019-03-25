@@ -1,10 +1,14 @@
-from rest_framework import mixins
 from rest_framework import generics
 
-from . import models, serializers, views
+from . import models, serializers
 
 
-class EntriesByStationView(mixins.ListModelMixin, generics.GenericAPIView):
+class StationIntervalsView(generics.ListAPIView):
+    queryset = models.StationInterval.objects.select_related("station")
+    serializer_class = serializers.StationIntervalSerializer
+
+
+class EntriesByStationView(generics.ListAPIView):
     queryset = models.StationInterval.objects.select_related("station")
     # serializer_class = serializers.EntryIntervalSerializer
 

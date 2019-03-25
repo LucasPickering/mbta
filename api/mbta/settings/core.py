@@ -19,16 +19,10 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
 
-
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME": "mbta",
-        "USER": "root",
-        "PASSWORD": os.getenv("DB_PASSWORD", "root"),
-        "HOST": "DB",
-        "PORT": "",
-    }
+REST_FRAMEWORK = {
+    "DEFAULT_PERMISSION_CLASSES": [
+        "rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly"
+    ]
 }
 
 # Application definition
@@ -40,6 +34,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "rest_framework",
     "core",
 ]
 
@@ -79,8 +74,12 @@ WSGI_APPLICATION = "mbta.wsgi.application"
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": os.path.join(BASE_DIR, "db.sqlite3"),
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": "mbta",
+        "USER": "root",
+        "PASSWORD": os.getenv("DB_PASSWORD", "root"),
+        "HOST": "db",
+        "PORT": "",
     }
 }
 
