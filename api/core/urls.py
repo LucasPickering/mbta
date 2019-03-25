@@ -1,5 +1,5 @@
-from django.conf.urls import include, url
+from django.conf.urls import url
 
 from . import views
 
-urlpatterns = []
+urlpatterns = [url(r"^entries", views.EntriesByStationView.as_view())]
