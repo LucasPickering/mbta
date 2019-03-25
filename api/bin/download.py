@@ -20,8 +20,8 @@ def extract(response, csv_name, output_dir):
     zf = zipfile.ZipFile(f)
     dest_path = os.path.join(output_dir, os.path.basename(csv_name))
 
-    with zf.open(csv_name) as infile, open(dest_path, "wb") as outfile:
-        outfile.write(infile.read())
+    with zf.open(csv_name) as infile, open(dest_path, "w") as outfile:
+        outfile.write(infile.read().decode("utf-8-sig"))
 
     print(f"Extracted to {dest_path}")
 
