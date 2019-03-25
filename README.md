@@ -12,8 +12,8 @@ docker exec mbta_api_1 ./manage.py migrate
 All these commands are run from within `api/`:
 
 ```
-bin/download.py  # Download CSVs, according to data/urls.json
-bin/gen_stations.py -c data/gated_station_entries_2013.csv  # Generate data/stations.json
+./manage.py download  # Download CSVs, according to data/urls.json
+./manage.py genstations -c data/gated_station_entries_2013.csv  # Generate data/stations.json
 ./manage.py insertstations  # Add stations to the DB
-./manage.py insertdata  # Add CSV data to the DB
+./manage.py insertdata data/*.csv  # Add CSV data to the DB (takes a long time)
 ```

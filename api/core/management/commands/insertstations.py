@@ -13,5 +13,7 @@ class Command(BaseCommand):
     def handle(self, *args, data, **options):
         with open(data) as f:
             stations = json.load(f)
-        for station in stations:
-            models.Station.objects.create(**station)
+        # Create a Station object for each station
+        objs = [models.Station(**station) for station in stations]
+        models.Station.objects.bulk_create(objs)  # Insert them all
+        print(f"Inserted {len(objs)} rows")

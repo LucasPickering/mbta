@@ -22,3 +22,6 @@ class StationInterval(models.Model):
     date = models.DateField()
     start_time = models.PositiveSmallIntegerField()
     entries = models.PositiveSmallIntegerField()
+
+    class Meta:
+        unique_together = (("station", "date", "start_time"),)

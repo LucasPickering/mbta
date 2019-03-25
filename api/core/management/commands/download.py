@@ -1,11 +1,9 @@
-#!/usr/bin/env python3
-
-import argparse
 import io
 import json
 import os
 import requests
 import zipfile
+from django.core.management.base import BaseCommand
 
 
 def download(url):
@@ -26,15 +24,18 @@ def extract(response, csv_name, output_dir):
     print(f"Extracted to {dest_path}")
 
 
-if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Download data")
-    parser.add_argument("--urls", "-u", default="data/urls.json")
-    parser.add_argument("--output", "-o", default="data/")
-    args = parser.parse_args()
+class Command(BaseCommand):
+    help = "Download CSV data"
 
-    with open(args.urls) as f:
-        url_objs = json.load(f)
+    def add_arguments(self, parser):
+        parser.add_argument("--urls", "-u", default="data/urls.json")
+        parser.add_argument("--output", "-o", default="data/")
 
-    for url_obj in url_objs:
-        r = download(url_obj["url"])
-        extract(r, url_obj["csv"], args.output)
+    def handle(self, *args, urls, output, **options):
+        with open(urls) as f:
+            url_objs = json.load(f)
+
+        for url_obj in url_objs:
+            r = download(url_obj["url"])
+            extract(r, url_obj["csv"], output)
+
