@@ -2,13 +2,30 @@ import csv
 import json
 from django.core.management.base import BaseCommand
 
+BASE_URL = "https://api-v3.mbta.com/stops?include=parent_station"
+
+def get_stops_url(route_type):
+
+    return "{0}&filter%5Broute_type%5D={1}".format(BASE_URL, route_type)
+
+def get_stops(route_type):
+    url = get_stops_url(route_type)
+    resp = requests.get(url)
+
+    return json.loads(resp.text)['included']
+
+def extract_lat_lon(station):
+    attr = station["attributes"]
+    lat = attr["latitude"]
+    lon = attr["longitude"]
+
+    return {"lat":lat, "lon":lon}
 
 class Command(BaseCommand):
     help = "Generate station metadata"
 
     def add_arguments(self, parser):
         parser.add_argument("--csvs", "-c", nargs="+", required=True)
-        parser.add_argument("--locs", "-l", default="data/station_locs.json")
         parser.add_argument("--output", "-o", default="data/stations.json")
 
     def handle(self, *args, csvs, locs, output, **options):
@@ -19,8 +36,11 @@ class Command(BaseCommand):
                 reader = csv.DictReader(lines)
                 rows += reader
 
-        with open(locs) as f:
-            station_locs = json.load(f)
+        ## route_type = {0,1}: Light Rail, Subway, Metro
+        ## location_type = 1: Stations
+        ## https://developers.google.com/transit/gtfs/reference/
+        stations = [s for s in get_stops(0) + get_stops(1) if s["attributes"]["location_type"]==1]
+        stat_locs = {s["id"]:extract_lat_lon(s) for s in stations}
 
         stations = {}
         for row in rows:
@@ -30,8 +50,8 @@ class Command(BaseCommand):
                     "gtfs_id": station_id,
                     "name": row["STATION_NAME"],
                     "lines": [],
-                    "lat": station_locs.get(station_id,{}).get("lat")
-                    "lon": station_locs.get(station_id,{}).get("lon")
+                    "lat": stat_locs.get(station_id,{}).get("lat")
+                    "lon": stat_locs.get(station_id,{}).get("lon")
                 }
 
         with open(output, "w") as f:
