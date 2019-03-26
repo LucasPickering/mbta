@@ -28,7 +28,7 @@ class Command(BaseCommand):
         parser.add_argument("--csvs", "-c", nargs="+", required=True)
         parser.add_argument("--output", "-o", default="data/stations.json")
 
-    def handle(self, *args, csvs, locs, output, **options):
+    def handle(self, *args, csvs, output, **options):
         rows = []
         for csv_file in csvs:
             with open(csv_file) as f:
