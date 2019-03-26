@@ -3,8 +3,13 @@ from rest_framework import generics
 from . import models, serializers
 
 
+class StationsView(generics.ListAPIView):
+    queryset = models.Station.objects.all()
+    serializer_class = serializers.StationSerializer
+
+
 class StationIntervalsView(generics.ListAPIView):
-    queryset = models.StationInterval.objects.select_related("station")
+    queryset = models.StationInterval.objects.all()[:100]
     serializer_class = serializers.StationIntervalSerializer
 
 
