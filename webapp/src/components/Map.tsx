@@ -13,7 +13,7 @@ const BOUNDS = new LatLngBounds(
 
 interface Props {}
 
-const Map: React.FunctionComponent<Props> = () => {
+const Map: React.ComponentType<Props> = () => {
   return (
     <LeafletMap
       className="full-size"
