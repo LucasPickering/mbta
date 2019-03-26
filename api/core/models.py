@@ -15,6 +15,8 @@ class Station(models.Model):
     gtfs_id = models.CharField(max_length=30, primary_key=True)
     name = models.CharField(max_length=30, unique=True)
     lines = ArrayField(models.CharField(max_length=10, choices=LINES.items()))
+    lat = models.DecimalField(max_digits=8, decimal_places=6)
+    lon = models.DecimalField(max_digits=8, decimal_places=6)
 
 
 class StationInterval(models.Model):
