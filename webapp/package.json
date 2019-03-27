@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@material-ui/core": "^3.9.2",
+    "@material-ui/styles": "^3.0.0-alpha.10",
     "classnames": "^2.2.6",
     "leaflet": "^1.4.0",
     "react": "^16.8.5",

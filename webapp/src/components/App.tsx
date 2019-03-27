@@ -1,4 +1,5 @@
-import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
+import { createMuiTheme } from '@material-ui/core/styles';
+import { ThemeProvider, useTheme } from '@material-ui/styles';
 import classNames from 'classnames';
 import React from 'react';
 
@@ -21,11 +22,11 @@ const theme = createMuiTheme({
 interface Props {}
 
 const App: React.ComponentType<Props> = () => (
-  <MuiThemeProvider theme={theme}>
+  <ThemeProvider theme={theme}>
     <div className={classNames('full-size')}>
       <MapContainer />
     </div>
-  </MuiThemeProvider>
+  </ThemeProvider>
 );
 
 export default App;

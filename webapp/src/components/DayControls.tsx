@@ -1,6 +1,6 @@
 import TextField from '@material-ui/core/TextField';
 import Toolbar from '@material-ui/core/Toolbar';
-import React from 'react';
+import React, { useState } from 'react';
 
 import intervals from '../data/intervals.json';
 import PlaybackSlider from './PlaybackSlider';
@@ -8,6 +8,10 @@ import PlaybackSlider from './PlaybackSlider';
 interface Props {}
 
 const DayControls: React.ComponentType<Props> = () => {
+  const [selectedStartTime, setSelectedStartTime] = useState<number>(
+    intervals[0].start_time
+  );
+
   return (
     <Toolbar>
       <form noValidate>
@@ -18,7 +22,11 @@ const DayControls: React.ComponentType<Props> = () => {
           defaultValue="2018-12-31"
         />
       </form>
-      <PlaybackSlider intervals={intervals} selectedStartTime={2215} />
+      <PlaybackSlider
+        intervals={intervals}
+        selectedStartTime={selectedStartTime}
+        onSelect={setSelectedStartTime}
+      />
     </Toolbar>
   );
 };
