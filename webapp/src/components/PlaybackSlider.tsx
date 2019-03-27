@@ -34,13 +34,13 @@ const useLocalStyles = makeStyles(({ spacing }: Theme) => ({
 
 interface Props {
   intervals: Interval[];
-  selectedStartTime: number;
-  onSelect?: (selectedStartTime: number) => void;
+  activeTime: number;
+  onSelect?: (activeTime: number) => void;
 }
 
 const PlaybackSlider: React.ComponentType<Props> = ({
   intervals,
-  selectedStartTime,
+  activeTime,
   onSelect,
 }) => {
   const localClasses = useLocalStyles();
@@ -54,14 +54,14 @@ const PlaybackSlider: React.ComponentType<Props> = ({
     >
       {intervals.map(({ start_time, entries }, i) => {
         const height = entries / maxEntries;
-        const isSelected = start_time === selectedStartTime;
+        const isActive = start_time === activeTime;
 
         return (
           <g key={start_time}>
             <rect
               className={classNames({
-                [localClasses.unselected]: !isSelected,
-                [localClasses.selected]: isSelected,
+                [localClasses.unselected]: !isActive,
+                [localClasses.selected]: isActive,
               })}
               x={i}
               y={1 - height}
@@ -69,7 +69,7 @@ const PlaybackSlider: React.ComponentType<Props> = ({
               height={height}
               onClick={onSelect && (() => onSelect(start_time))}
             />
-            {isSelected && (
+            {isActive && (
               <polygon
                 className={localClasses.selected}
                 points={POINTER_POINTS}

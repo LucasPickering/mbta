@@ -1,16 +1,26 @@
 import TextField from '@material-ui/core/TextField';
 import Toolbar from '@material-ui/core/Toolbar';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import intervals from '../data/intervals.json';
 import PlaybackSlider from './PlaybackSlider';
 
 interface Props {}
 
+const PLAY_INTERVAL = 250;
+
 const DayControls: React.ComponentType<Props> = () => {
-  const [selectedStartTime, setSelectedStartTime] = useState<number>(
-    intervals[0].start_time
-  );
+  const [playing, setPlaying] = useState<boolean>(true);
+  const [activeIntIndex, setActiveIntIndex] = useState<number>(0);
+  const activeInterval = intervals[activeIntIndex];
+
+  useEffect(() => {
+    const interval = setInterval(
+      () => setActiveIntIndex(prevVal => (prevVal + 1) % intervals.length),
+      PLAY_INTERVAL
+    );
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <Toolbar>
@@ -24,8 +34,8 @@ const DayControls: React.ComponentType<Props> = () => {
       </form>
       <PlaybackSlider
         intervals={intervals}
-        selectedStartTime={selectedStartTime}
-        onSelect={setSelectedStartTime}
+        activeTime={activeInterval.start_time}
+        // onSelect={setSelectedTime}
       />
     </Toolbar>
   );
