@@ -13,7 +13,7 @@ const BOUNDS = new LatLngBounds(
 
 interface Props {}
 
-const Map: React.ComponentType<Props> = () => {
+const Map: React.ComponentType<Props> = ({ children }) => {
   return (
     <LeafletMap
       className="full-size"
@@ -21,12 +21,13 @@ const Map: React.ComponentType<Props> = () => {
       maxBounds={BOUNDS}
       zoom={12}
       minZoom={12}
-      maxZoom={15}
+      maxZoom={16}
     >
       <TileLayer
         url="http://tiles.mapc.org/basemap/{z}/{x}/{y}.png"
         bounds={BOUNDS}
       />
+      {children}
     </LeafletMap>
   );
 };
