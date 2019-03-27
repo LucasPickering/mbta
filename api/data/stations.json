@@ -2,321 +2,321 @@
   {
     "gtfs_id": "place-state",
     "name": "State Street",
-    "lines": []
+    "lines": ["blue", "orange"]
   },
   {
     "gtfs_id": "place-mlmnl",
     "name": "Malden Center ",
-    "lines": []
+    "lines": ["orange"]
   },
   {
     "gtfs_id": "place-orhte",
     "name": "Orient Heights",
-    "lines": []
+    "lines": ["blue"]
   },
   {
     "gtfs_id": "place-nqncy",
     "name": "North Quincy",
-    "lines": []
+    "lines": ["red"]
   },
   {
     "gtfs_id": "place-river",
     "name": "Riverside",
-    "lines": []
+    "lines": ["green"]
   },
   {
     "gtfs_id": "place-portr",
     "name": "Porter Square",
-    "lines": []
+    "lines": ["red"]
   },
   {
     "gtfs_id": "place-chncl",
     "name": "Chinatown",
-    "lines": []
+    "lines": ["orange"]
   },
   {
     "gtfs_id": "place-sull",
     "name": "Sullivan Square",
-    "lines": []
+    "lines": ["orange"]
   },
   {
     "gtfs_id": "place-sbmnl",
     "name": "Stony Brook",
-    "lines": []
+    "lines": ["orange"]
   },
   {
     "gtfs_id": "place-rcmnl",
     "name": "Roxbury Crossing",
-    "lines": []
+    "lines": ["orange"]
   },
   {
     "gtfs_id": "place-qamnl",
     "name": "Quincy Adams",
-    "lines": []
+    "lines": ["red"]
   },
   {
     "gtfs_id": "place-north",
     "name": "North Station",
-    "lines": []
+    "lines": ["green", "orange"]
   },
   {
     "gtfs_id": "place-sdmnl",
     "name": "Suffolk Downs",
-    "lines": []
+    "lines": ["blue"]
   },
   {
     "gtfs_id": "place-symcl",
     "name": "Symphony",
-    "lines": []
+    "lines": ["green"]
   },
   {
     "gtfs_id": "place-ogmnl",
     "name": "Oak Grove",
-    "lines": []
+    "lines": ["orange"]
   },
   {
     "gtfs_id": "place-qnctr",
     "name": "Quincy Center",
-    "lines": []
+    "lines": ["red"]
   },
   {
     "gtfs_id": "place-mvbcl",
     "name": "Maverick",
-    "lines": []
+    "lines": ["blue"]
   },
   {
     "gtfs_id": "place-pktrm",
     "name": "Park Street",
-    "lines": []
+    "lines": ["green", "red"]
   },
   {
     "gtfs_id": "place-tumnl",
     "name": "Tufts Medical Center",
-    "lines": []
+    "lines": ["orange", "silver"]
   },
   {
     "gtfs_id": "place-shmnl",
     "name": "Savin Hill",
-    "lines": []
+    "lines": ["red"]
   },
   {
     "gtfs_id": "place-rbmnl",
     "name": "Revere Beach",
-    "lines": []
+    "lines": ["blue"]
   },
   {
     "gtfs_id": "place-welln",
     "name": "Wellington ",
-    "lines": []
+    "lines": ["orange"]
   },
   {
     "gtfs_id": "place-wlsta",
     "name": "Wollaston",
-    "lines": []
+    "lines": ["red"]
   },
   {
     "gtfs_id": "place-prmnl",
     "name": "Prudential",
-    "lines": []
+    "lines": ["green"]
   },
   {
     "gtfs_id": "place-davis",
     "name": "Davis Square",
-    "lines": []
+    "lines": ["red"]
   },
   {
     "gtfs_id": "place-wondl",
     "name": "Wonderland",
-    "lines": []
+    "lines": ["blue"]
   },
   {
     "gtfs_id": "place-sstat",
     "name": "South Station",
-    "lines": []
+    "lines": ["red", "silver"]
   },
   {
     "gtfs_id": "place-wimnl",
     "name": "Wood Island",
-    "lines": []
+    "lines": ["blue"]
   },
   {
     "gtfs_id": "place-wtcst",
     "name": "World Trade Center",
-    "lines": []
+    "lines": ["silver"]
   },
   {
     "gtfs_id": "place-fldcr",
     "name": "Fields Corner",
-    "lines": []
+    "lines": ["red"]
   },
   {
     "gtfs_id": "place-rugg",
     "name": "Ruggles",
-    "lines": []
+    "lines": ["orange"]
   },
   {
     "gtfs_id": "place-forhl",
     "name": "Forest Hills",
-    "lines": []
+    "lines": ["orange"]
   },
   {
     "gtfs_id": "place-gover",
     "name": "Government Center",
-    "lines": []
+    "lines": ["blue", "green"]
   },
   {
     "gtfs_id": "place-spmnl",
     "name": "Science Park",
-    "lines": []
+    "lines": ["green"]
   },
   {
     "gtfs_id": "place-smmnl",
     "name": "Shawmut",
-    "lines": []
+    "lines": ["red"]
   },
   {
     "gtfs_id": "place-harsq",
     "name": "Harvard",
-    "lines": []
+    "lines": ["red"]
   },
   {
     "gtfs_id": "place-kencl",
     "name": "Kenmore Square",
-    "lines": []
+    "lines": ["green"]
   },
   {
     "gtfs_id": "place-lech",
     "name": "Lechmere",
-    "lines": []
+    "lines": ["green"]
   },
   {
     "gtfs_id": "place-aport",
     "name": "Airport",
-    "lines": []
+    "lines": ["blue", "silver"]
   },
   {
     "gtfs_id": "place-andrw",
     "name": "Andrew Square",
-    "lines": []
+    "lines": ["red"]
   },
   {
     "gtfs_id": "place-aqucl",
     "name": "Aquarium",
-    "lines": []
+    "lines": ["blue"]
   },
   {
     "gtfs_id": "place-asmnl",
     "name": "Ashmont",
-    "lines": []
+    "lines": ["red"]
   },
   {
     "gtfs_id": "place-astao",
     "name": "Assembly Square",
-    "lines": []
+    "lines": ["orange"]
   },
   {
     "gtfs_id": "place-bomnl",
     "name": "Bowdoin",
-    "lines": []
+    "lines": ["blue"]
   },
   {
     "gtfs_id": "place-boyls",
     "name": "Boylston",
-    "lines": []
+    "lines": ["green"]
   },
   {
     "gtfs_id": "place-chmnl",
     "name": "Charles MGH",
-    "lines": []
+    "lines": ["red"]
   },
   {
     "gtfs_id": "place-ccmnl",
     "name": "Community College",
-    "lines": []
+    "lines": ["orange"]
   },
   {
     "gtfs_id": "place-coecl",
     "name": "Copley Square",
-    "lines": []
+    "lines": ["green"]
   },
   {
     "gtfs_id": "place-crtst",
     "name": "Courthouse",
-    "lines": []
+    "lines": ["silver"]
   },
   {
     "gtfs_id": "place-grnst",
     "name": "Green Street",
-    "lines": []
+    "lines": ["orange"]
   },
   {
     "gtfs_id": "place-haecl",
     "name": "Haymarket",
-    "lines": []
+    "lines": ["green", "orange"]
   },
   {
     "gtfs_id": "place-hymnl",
     "name": "Hynes",
-    "lines": []
+    "lines": ["green"]
   },
   {
     "gtfs_id": "place-knncl",
     "name": "Kendall Square",
-    "lines": []
+    "lines": ["red"]
   },
   {
     "gtfs_id": "place-masta",
     "name": "Mass Ave",
-    "lines": []
+    "lines": ["orange"]
   },
   {
     "gtfs_id": "place-alfcl",
     "name": "Alewife",
-    "lines": []
+    "lines": ["red"]
   },
   {
     "gtfs_id": "place-armnl",
     "name": "Arlington",
-    "lines": []
+    "lines": ["green"]
   },
   {
     "gtfs_id": "place-bbsta",
     "name": "Back Bay",
-    "lines": []
+    "lines": ["orange"]
   },
   {
     "gtfs_id": "place-bmmnl",
     "name": "Beachmont",
-    "lines": []
+    "lines": ["blue"]
   },
   {
     "gtfs_id": "place-brntn",
     "name": "Braintree",
-    "lines": []
+    "lines": ["red"]
   },
   {
     "gtfs_id": "place-brdwy",
     "name": "Broadway",
-    "lines": []
+    "lines": ["red"]
   },
   {
     "gtfs_id": "place-cntsq",
     "name": "Central Square",
-    "lines": []
+    "lines": ["red"]
   },
   {
     "gtfs_id": "place-dwnxg",
     "name": "Downtown Crossing",
-    "lines": []
+    "lines": ["orange", "red"]
   },
   {
     "gtfs_id": "place-jaksn",
     "name": "Jackson Square",
-    "lines": []
+    "lines": ["orange"]
   },
   {
     "gtfs_id": "place-jfk",
     "name": "JFK/U Mass",
-    "lines": []
+    "lines": ["red"]
   }
 ]

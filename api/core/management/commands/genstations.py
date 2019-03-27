@@ -26,9 +26,10 @@ class Command(BaseCommand):
 
     def add_arguments(self, parser):
         parser.add_argument("--csvs", "-c", nargs="+", required=True)
+        parser.add_argument("--lines", "-l", default="data/lines.json")
         parser.add_argument("--output", "-o", default="data/stations.json")
 
-    def handle(self, *args, csvs, output, **options):
+    def handle(self, *args, csvs, lines, output, **options):
         rows = []
         for csv_file in csvs:
             with open(csv_file) as f:
@@ -42,6 +43,9 @@ class Command(BaseCommand):
         stations = [s for s in get_stops(0) + get_stops(1) if s["attributes"]["location_type"]==1]
         stat_locs = {s["id"]:extract_lat_lon(s) for s in stations}
 
+        with open(lines) as f:
+            line_mapping = json.loads(lines)
+
         stations = {}
         for row in rows:
             station_id = row["GTFS_STOP_ID"]
@@ -49,7 +53,7 @@ class Command(BaseCommand):
                 stations[station_id] = {
                     "gtfs_id": station_id,
                     "name": row["STATION_NAME"],
-                    "lines": [],
+                    "lines": line_mapping.get(station_id),
                     "lat": stat_locs.get(station_id,{}).get("lat")
                     "lon": stat_locs.get(station_id,{}).get("lon")
                 }
