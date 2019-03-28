@@ -1,22 +1,32 @@
 import TextField from '@material-ui/core/TextField';
 import Toolbar from '@material-ui/core/Toolbar';
-import React, { useEffect, useState } from 'react';
+import { sortedIndex } from 'lodash-es';
+import React, { useEffect, useMemo, useState } from 'react';
 
-import intervals from '../data/intervals.json';
+import { IntervalSet } from '../types';
 import PlaybackSlider from './PlaybackSlider';
 
-interface Props {}
+interface Props {
+  summaryIntervals: IntervalSet;
+  activeIndex: number;
+  setActiveIndex: React.Dispatch<React.SetStateAction<number>>;
+}
 
 const PLAY_INTERVAL = 250;
 
-const DayControls: React.ComponentType<Props> = () => {
+const MapControls: React.ComponentType<Props> = ({
+  summaryIntervals,
+  activeIndex,
+  setActiveIndex,
+}) => {
   const [playing, setPlaying] = useState<boolean>(true);
-  const [activeIntIndex, setActiveIntIndex] = useState<number>(0);
-  const activeInterval = intervals[activeIntIndex];
 
   useEffect(() => {
     const interval = setInterval(
-      () => setActiveIntIndex(prevVal => (prevVal + 1) % intervals.length),
+      () =>
+        setActiveIndex(
+          prevActiveIndex => (prevActiveIndex + 1) % summaryIntervals.length
+        ),
       PLAY_INTERVAL
     );
     return () => clearInterval(interval);
@@ -33,12 +43,12 @@ const DayControls: React.ComponentType<Props> = () => {
         />
       </form>
       <PlaybackSlider
-        intervals={intervals}
-        activeTime={activeInterval.start_time}
+        intervals={summaryIntervals}
+        activeIndex={activeIndex}
         // onSelect={setSelectedTime}
       />
     </Toolbar>
   );
 };
 
-export default DayControls;
+export default MapControls;

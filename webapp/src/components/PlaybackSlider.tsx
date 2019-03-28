@@ -3,7 +3,8 @@ import { makeStyles } from '@material-ui/styles';
 import classNames from 'classnames';
 import React from 'react';
 
-import { Interval } from '../types';
+import { maxBy } from 'lodash-es';
+import { IntervalSet } from '../types';
 
 const POINTER_WIDTH = 1.5;
 const POINTER_HEIGHT = 0.2;
@@ -33,18 +34,18 @@ const useLocalStyles = makeStyles(({ spacing }: Theme) => ({
 }));
 
 interface Props {
-  intervals: Interval[];
-  activeTime: number;
-  onSelect?: (activeTime: number) => void;
+  intervals: IntervalSet;
+  activeIndex: number;
+  setActiveIndex?: (activeIndex: number) => void;
 }
 
 const PlaybackSlider: React.ComponentType<Props> = ({
   intervals,
-  activeTime,
-  onSelect,
+  activeIndex,
+  setActiveIndex,
 }) => {
   const localClasses = useLocalStyles();
-  const maxEntries = Math.max(...intervals.map(e => e.entries));
+  const maxEntries: number = maxBy(intervals, int => int.entries)!.entries;
 
   return (
     <svg
@@ -54,7 +55,7 @@ const PlaybackSlider: React.ComponentType<Props> = ({
     >
       {intervals.map(({ start_time, entries }, i) => {
         const height = entries / maxEntries;
-        const isActive = start_time === activeTime;
+        const isActive = i === activeIndex;
 
         return (
           <g key={start_time}>
@@ -67,7 +68,7 @@ const PlaybackSlider: React.ComponentType<Props> = ({
               y={1 - height}
               width={1}
               height={height}
-              onClick={onSelect && (() => onSelect(start_time))}
+              onClick={setActiveIndex && (() => setActiveIndex(start_time))}
             />
             {isActive && (
               <polygon
