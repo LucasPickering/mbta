@@ -63,5 +63,5 @@ class Command(BaseCommand):
                 }
 
         with open(output, "w") as f:
-            json.dump(list(stations.values()), f, indent=2)
+            json.dump(stations, f, indent=2)
 
