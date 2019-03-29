@@ -11,6 +11,10 @@ export interface Station {
   lon: number;
 }
 
+export interface StationSet {
+  [station: string]: Station;
+}
+
 export type IntervalSet = Interval[];
 export interface StationIntervals {
   [station: string]: {
