@@ -1,23 +1,23 @@
 import React, { useState } from 'react';
-import { Circle } from 'react-leaflet';
 
-import data from '../data/array.json';
+import data from '../data/composite.json';
 import { SeriesSet } from '../types.js';
-import Map from './Map';
 import MapControls from './MapControls';
+import MapVisualization from './MapVisualization';
 
 const typedData = (data as unknown) as SeriesSet;
-
-const stations = [{ lat: 42.35, lng: -71.06 }];
 
 interface Props {}
 
 const MapContainer: React.ComponentType<Props> = () => {
   const {
-    series1: { summary },
+    series1: { summary, stations },
   } = typedData;
 
   const [activeIndex, setActiveIndex] = useState<number>(0);
+  // Convert the index to an actual time. We know the summary time slots are
+  // sorted and contain all possible times.
+  const activeTime = summary[activeIndex].start_time;
 
   return (
     <div className="full-size">
@@ -26,11 +26,7 @@ const MapContainer: React.ComponentType<Props> = () => {
         activeIndex={activeIndex}
         setActiveIndex={setActiveIndex}
       />
-      <Map>
-        {stations.map(({ lat, lng }) => (
-          <Circle key={lat} center={[lat, lng]} radius={1000} stroke={false} />
-        ))}
-      </Map>
+      <MapVisualization activeTime={activeTime} stationIntervals={stations} />
     </div>
   );
 };
