@@ -17,17 +17,14 @@ const MapVisualization: React.ComponentType<Props> = ({
   stationIntervals,
 }) => (
   <Map>
-    {typedStations
-      // TODO: remove this
-      .filter(({ lat }) => Boolean(lat))
-      .map(({ gtfs_id, lat, lon }) => (
-        <Circle
-          key={gtfs_id}
-          center={[lat, lon]}
-          radius={stationIntervals[gtfs_id][activeTime] * 10}
-          stroke={false}
-        />
-      ))}
+    {typedStations.map(({ gtfs_id, lat, lon }) => (
+      <Circle
+        key={gtfs_id}
+        center={[lat, lon]}
+        radius={stationIntervals[gtfs_id][activeTime] * 10}
+        stroke={false}
+      />
+    ))}
   </Map>
 );
 
