@@ -1,8 +1,10 @@
 import TextField from '@material-ui/core/TextField';
 import Toolbar from '@material-ui/core/Toolbar';
-import { sortedIndex } from 'lodash-es';
 import React, { useEffect, useRef, useState } from 'react';
 
+import IconButton from '@material-ui/core/IconButton';
+import PauseIcon from '@material-ui/icons/Pause';
+import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import { IntervalSet } from '../types';
 import PlaybackSlider from './PlaybackSlider';
 
@@ -55,6 +57,9 @@ const MapControls: React.ComponentType<Props> = ({
         setActiveIndex={setActiveIndex}
         setPlaying={setPlaying}
       />
+      <IconButton onClick={() => setPlaying(prevPlaying => !prevPlaying)}>
+        {playing ? <PauseIcon /> : <PlayArrowIcon />}
+      </IconButton>
     </Toolbar>
   );
 };
