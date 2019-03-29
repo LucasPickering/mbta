@@ -21,7 +21,7 @@ const MapControls: React.ComponentType<Props> = ({
   activeIndex,
   setActiveIndex,
 }) => {
-  const [playing, setPlaying] = useState<boolean>(true);
+  const [playing, setPlaying] = useState<boolean>(false);
 
   // We need this so that the setInterval closure can always access the current
   // value of playing. Otherwise, it would capture the value when the interval

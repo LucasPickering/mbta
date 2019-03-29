@@ -7,6 +7,8 @@ import Map from './Map';
 
 const typedStations = (stations as unknown) as Station[];
 
+const SIZE_FACTOR: number = 10;
+
 interface Props {
   activeTime: number;
   stationIntervals: StationIntervals;
@@ -21,7 +23,7 @@ const MapVisualization: React.ComponentType<Props> = ({
       <Circle
         key={gtfs_id}
         center={[lat, lon]}
-        radius={stationIntervals[gtfs_id][activeTime] * 10}
+        radius={stationIntervals[gtfs_id][activeTime] * SIZE_FACTOR}
         stroke={false}
       />
     ))}
