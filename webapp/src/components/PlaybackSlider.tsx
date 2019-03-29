@@ -36,13 +36,15 @@ const useLocalStyles = makeStyles(({ spacing }: Theme) => ({
 interface Props {
   intervals: IntervalSet;
   activeIndex: number;
-  setActiveIndex?: (activeIndex: number) => void;
+  setActiveIndex: React.Dispatch<React.SetStateAction<number>>;
+  setPlaying: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const PlaybackSlider: React.ComponentType<Props> = ({
   intervals,
   activeIndex,
   setActiveIndex,
+  setPlaying,
 }) => {
   const localClasses = useLocalStyles();
   const maxEntries: number = maxBy(intervals, int => int.entries)!.entries;
@@ -68,7 +70,10 @@ const PlaybackSlider: React.ComponentType<Props> = ({
               y={1 - height}
               width={1}
               height={height}
-              onClick={setActiveIndex && (() => setActiveIndex(start_time))}
+              onClick={() => {
+                setActiveIndex(i);
+                setPlaying(false);
+              }}
             />
             {isActive && (
               <polygon

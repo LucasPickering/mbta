@@ -1,7 +1,7 @@
 import TextField from '@material-ui/core/TextField';
 import Toolbar from '@material-ui/core/Toolbar';
 import { sortedIndex } from 'lodash-es';
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 import { IntervalSet } from '../types';
 import PlaybackSlider from './PlaybackSlider';
@@ -21,14 +21,21 @@ const MapControls: React.ComponentType<Props> = ({
 }) => {
   const [playing, setPlaying] = useState<boolean>(true);
 
+  // We need this so that the setInterval closure can always access the current
+  // value of playing. Otherwise, it would capture the value when the interval
+  // is first created, and always use that value.
+  const playingRef = useRef(playing);
+  playingRef.current = playing;
+
+  // One-time setup to create an interval that increments the active index
   useEffect(() => {
-    const interval = setInterval(
-      () =>
+    const interval = setInterval(() => {
+      if (playingRef.current) {
         setActiveIndex(
           prevActiveIndex => (prevActiveIndex + 1) % summaryIntervals.length
-        ),
-      PLAY_INTERVAL
-    );
+        );
+      }
+    }, PLAY_INTERVAL);
     return () => clearInterval(interval);
   }, []);
 
@@ -45,7 +52,8 @@ const MapControls: React.ComponentType<Props> = ({
       <PlaybackSlider
         intervals={summaryIntervals}
         activeIndex={activeIndex}
-        // onSelect={setSelectedTime}
+        setActiveIndex={setActiveIndex}
+        setPlaying={setPlaying}
       />
     </Toolbar>
   );
