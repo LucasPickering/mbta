@@ -19,14 +19,19 @@ const MapVisualization: React.ComponentType<Props> = ({
   stationIntervals,
 }) => (
   <Map>
-    {typedStations.map(({ gtfs_id, lat, lon }) => (
-      <Circle
-        key={gtfs_id}
-        center={[lat, lon]}
-        radius={stationIntervals[gtfs_id][activeTime] * SIZE_FACTOR}
-        stroke={false}
-      />
-    ))}
+    {typedStations.map(({ gtfs_id, lat, lon }) => {
+      const stationData = stationIntervals[gtfs_id];
+      if (stationData) {
+        return (
+          <Circle
+            key={gtfs_id}
+            center={[lat, lon]}
+            radius={stationData[activeTime] * SIZE_FACTOR}
+            stroke={false}
+          />
+        );
+      }
+    })}
   </Map>
 );
 
