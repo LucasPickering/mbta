@@ -1,14 +1,12 @@
 import React, { useContext } from 'react';
-import { Circle } from 'react-leaflet';
 
 import stations from '../data/stations.json';
 import { MapContext } from '../state/map';
 import { StationSet } from '../types';
-import Map from './Map';
+import Map from './leaflet/Map';
+import MapStation from './MapStation';
 
 const typedStations = (stations as unknown) as StationSet;
-
-const SIZE_FACTOR: number = 10;
 
 interface Props {}
 
@@ -23,17 +21,14 @@ const MapVisualization: React.ComponentType<Props> = ({}) => {
 
   return (
     <Map>
-      {Object.entries(stationIntervals).map(([stationId, stationData]) => {
-        const { lat, lon } = typedStations[stationId];
-        return (
-          <Circle
-            key={stationId}
-            center={[lat, lon]}
-            radius={stationData[activeTime] * SIZE_FACTOR}
-            stroke={false}
-          />
-        );
-      })}
+      {Object.values(typedStations).map(station => (
+        <MapStation
+          key={station.gtfs_id}
+          station={station}
+          activeTime={activeTime}
+          entries={stationIntervals[station.gtfs_id][activeTime]}
+        />
+      ))}
     </Map>
   );
 };
