@@ -46,10 +46,28 @@ export const mapReducer: React.Reducer<MapState, MapAction> = (
         activeIndex: action.value,
       };
     case MapActionType.IncrActiveIndex:
-      return {
-        ...state,
-        activeIndex: state.activeIndex + 1,
-      };
+      const nextIndex = state.activeIndex + 1;
+      const dataLength = state.data!.summary.length;
+
+      if (nextIndex === dataLength - 1) {
+        // If this is the last interval, stop playing
+        return {
+          ...state,
+          playing: false,
+          activeIndex: nextIndex,
+        };
+      } else if (nextIndex >= dataLength) {
+        // If we've overflowed, go back to the beginning
+        return {
+          ...state,
+          activeIndex: 0,
+        };
+      } else {
+        return {
+          ...state,
+          activeIndex: nextIndex,
+        };
+      }
     case MapActionType.SetPlaying:
       return {
         ...state,
