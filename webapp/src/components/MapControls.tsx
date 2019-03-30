@@ -1,25 +1,17 @@
 import TextField from '@material-ui/core/TextField';
 import Toolbar from '@material-ui/core/Toolbar';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useContext, useEffect, useRef } from 'react';
 
-import { IntervalSet } from '../types';
+import { MapActionType, MapContext } from '../state/map';
 import PlaybackSlider from './PlaybackSlider';
 import PlayPauseButton from './PlayPauseButton';
 
-interface Props {
-  summaryIntervals: IntervalSet;
-  activeIndex: number;
-  setActiveIndex: React.Dispatch<React.SetStateAction<number>>;
-}
+interface Props {}
 
 const PLAY_INTERVAL = 250;
 
-const MapControls: React.ComponentType<Props> = ({
-  summaryIntervals,
-  activeIndex,
-  setActiveIndex,
-}) => {
-  const [playing, setPlaying] = useState<boolean>(false);
+const MapControls: React.ComponentType<Props> = ({}) => {
+  const [{ playing }, dispatch] = useContext(MapContext);
 
   // We need this so that the setInterval closure can always access the current
   // value of playing. Otherwise, it would capture the value when the interval
@@ -31,9 +23,7 @@ const MapControls: React.ComponentType<Props> = ({
   useEffect(() => {
     const interval = setInterval(() => {
       if (playingRef.current) {
-        setActiveIndex(
-          prevActiveIndex => (prevActiveIndex + 1) % summaryIntervals.length
-        );
+        dispatch({ type: MapActionType.IncrActiveIndex });
       }
     }, PLAY_INTERVAL);
     return () => clearInterval(interval);
@@ -49,13 +39,8 @@ const MapControls: React.ComponentType<Props> = ({
           defaultValue="2018-12-31"
         />
       </form>
-      <PlaybackSlider
-        intervals={summaryIntervals}
-        activeIndex={activeIndex}
-        setActiveIndex={setActiveIndex}
-        setPlaying={setPlaying}
-      />
-      <PlayPauseButton playing={playing} setPlaying={setPlaying} />
+      <PlaybackSlider />
+      <PlayPauseButton />
     </Toolbar>
   );
 };

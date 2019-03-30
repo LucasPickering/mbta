@@ -1,10 +1,10 @@
 import { Theme } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 import classNames from 'classnames';
-import React from 'react';
-
 import { maxBy } from 'lodash-es';
-import { IntervalSet } from '../types';
+import React, { useContext } from 'react';
+
+import { MapActionType, MapContext } from '../state/map';
 
 const POINTER_WIDTH = 1.5;
 const POINTER_HEIGHT = 0.2;
@@ -33,29 +33,24 @@ const useLocalStyles = makeStyles(({ spacing }: Theme) => ({
   },
 }));
 
-interface Props {
-  intervals: IntervalSet;
-  activeIndex: number;
-  setActiveIndex: React.Dispatch<React.SetStateAction<number>>;
-  setPlaying: React.Dispatch<React.SetStateAction<boolean>>;
-}
+interface Props {}
 
-const PlaybackSlider: React.ComponentType<Props> = ({
-  intervals,
-  activeIndex,
-  setActiveIndex,
-  setPlaying,
-}) => {
+const PlaybackSlider: React.ComponentType<Props> = ({}) => {
+  const [{ data, activeIndex }, dispatch] = useContext(MapContext);
+  const { summary: summaryIntervals } = data!;
   const localClasses = useLocalStyles();
-  const maxEntries: number = maxBy(intervals, int => int.entries)!.entries;
+
+  // Get the highest interval, to figure out how to scale each bar
+  const maxEntries: number = maxBy(summaryIntervals, int => int.entries)!
+    .entries;
 
   return (
     <svg
       className={localClasses.root}
-      viewBox={`0 0 ${intervals.length} ${1 + POINTER_HEIGHT}`}
+      viewBox={`0 0 ${summaryIntervals.length} ${1 + POINTER_HEIGHT}`}
       preserveAspectRatio="none"
     >
-      {intervals.map(({ start_time, entries }, i) => {
+      {summaryIntervals.map(({ start_time, entries }, i) => {
         const height = entries / maxEntries;
         const isActive = i === activeIndex;
 
@@ -71,8 +66,8 @@ const PlaybackSlider: React.ComponentType<Props> = ({
               width={1}
               height={height}
               onClick={() => {
-                setActiveIndex(i);
-                setPlaying(false);
+                dispatch({ type: MapActionType.SetActiveIndex, value: i });
+                dispatch({ type: MapActionType.SetPlaying, value: false });
               }}
             />
             {isActive && (
