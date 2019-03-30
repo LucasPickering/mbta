@@ -1,3 +1,6 @@
+import { Theme } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/styles';
+import classNames from 'classnames';
 import React, { useState } from 'react';
 
 import data from '../data/composite.json';
@@ -7,9 +10,18 @@ import MapVisualization from './MapVisualization';
 
 const typedData = (data as unknown) as SeriesSet;
 
+const useLocalStyles = makeStyles(({  }: Theme) => ({
+  root: {
+    display: 'flex',
+    flexDirection: 'column',
+  },
+}));
+
 interface Props {}
 
 const MapContainer: React.ComponentType<Props> = () => {
+  const localClasses = useLocalStyles();
+
   const {
     series1: { summary, stations },
   } = typedData;
@@ -20,7 +32,7 @@ const MapContainer: React.ComponentType<Props> = () => {
   const activeTime = summary[activeIndex].start_time;
 
   return (
-    <div className="full-size">
+    <div className={classNames('full-size', localClasses.root)}>
       <MapControls
         summaryIntervals={summary}
         activeIndex={activeIndex}
