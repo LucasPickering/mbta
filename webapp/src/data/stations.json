@@ -128,7 +128,7 @@
   "place-tumnl": {
     "gtfs_id": "place-tumnl",
     "name": "Tufts Medical Center",
-    "lines": ["orange", "silver"],
+    "lines": ["orange"],
     "lat": 42.349662,
     "lon": -71.063917
   },

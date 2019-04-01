@@ -1,17 +1,13 @@
-import { pad } from 'lodash-es';
+import Typography from '@material-ui/core/Typography';
 import React from 'react';
-import { Circle } from 'react-leaflet';
+import { Circle, Marker } from 'react-leaflet';
 
+import { formatLines, formatTime } from '../funcs';
 import { Station } from '../types';
 import Popup from './leaflet/Popup';
 
 const SIZE_FACTOR: number = 10;
-
-function formatTime(time: number): string {
-  const minutes = time % 100;
-  const hours = Math.floor(time / 100);
-  return `${hours}:${pad(minutes.toString(), 2, '0')}`;
-}
+const CIRCLE_OPACITY = 0.25;
 
 interface Props {
   station: Station;
@@ -19,23 +15,37 @@ interface Props {
   entries?: number;
 }
 
-const MapVisualization: React.ComponentType<Props> = ({
-  station: { name, lat, lon },
+const MapStation: React.ComponentType<Props> = ({
+  station: { name, lat, lon, lines },
   activeTime,
   entries,
 }) => {
   const position: [number, number] = [lat, lon];
+  const circleRadius = entries! * SIZE_FACTOR;
+  const circleOpacity = CIRCLE_OPACITY / lines.length;
 
   return (
-    <Circle center={position} radius={entries! * SIZE_FACTOR} stroke={false}>
-      <Popup position={position}>
-        <h3>{name}</h3>
-        Time: {formatTime(activeTime)}
-        <br />
-        Entries: {entries}
-      </Popup>
-    </Circle>
+    <>
+      <Marker position={position}>
+        <Popup position={position}>
+          <h3>{name}</h3>
+          <Typography>Time: {formatTime(activeTime)}</Typography>
+          <Typography>Lines: {formatLines(lines)}</Typography>
+          <Typography>Entries: {entries}</Typography>
+        </Popup>
+      </Marker>
+      {lines.map(line => (
+        <Circle
+          key={line}
+          center={position}
+          radius={circleRadius}
+          stroke={false}
+          color={line}
+          fillOpacity={circleOpacity}
+        />
+      ))}
+    </>
   );
 };
 
-export default MapVisualization;
+export default MapStation;
