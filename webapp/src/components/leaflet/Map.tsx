@@ -2,7 +2,7 @@ import { LatLng, LatLngBounds } from 'leaflet';
 import React from 'react';
 import { Map as LeafletMap, TileLayer } from 'react-leaflet';
 
-const RADIUS_LAT = 0.1;
+const RADIUS_LAT = 0.2;
 const RADIUS_LNG = 0.2;
 
 const DEFAULT_CENTER = new LatLng(42.3558318, -71.0625356);
@@ -22,11 +22,9 @@ const Map: React.ComponentType<Props> = ({ children }) => {
       zoom={12}
       minZoom={12}
       maxZoom={16}
+      maxBoundsViscosity={0.5}
     >
-      <TileLayer
-        url="http://tiles.mapc.org/basemap/{z}/{x}/{y}.png"
-        bounds={BOUNDS}
-      />
+      <TileLayer url="http://tiles.mapc.org/basemap/{z}/{x}/{y}.png" />
       {children}
     </LeafletMap>
   );

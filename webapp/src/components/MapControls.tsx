@@ -1,4 +1,3 @@
-import TextField from '@material-ui/core/TextField';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import React, { useContext, useEffect, useRef } from 'react';
@@ -43,15 +42,7 @@ const MapControls: React.ComponentType<Props> = ({}) => {
   }, []);
 
   return (
-    <Toolbar>
-      <form noValidate>
-        <TextField
-          id="date"
-          label="Date"
-          type="date"
-          defaultValue="2018-12-31"
-        />
-      </form>
+    <Toolbar style={{ justifyContent: 'center' }}>
       <PlaybackSlider />
       <PrevButton />
       <PlayPauseButton />
