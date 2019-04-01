@@ -1,10 +1,11 @@
 import React from 'react';
 
 import data from '../data/composite.json';
+import { mod } from '../funcs';
 import { Series } from '../types';
 
 export interface MapState {
-  data?: Series;
+  data: Series;
   activeIndex: number;
   playing: boolean;
 }
@@ -18,6 +19,7 @@ export const defaultMapState: MapState = {
 export enum MapActionType {
   SetData = 'setData',
   SetActiveIndex = 'setActiveIndex',
+  DecrActiveIndex = 'decrActiveIndex',
   IncrActiveIndex = 'incrActiveIndex',
   SetPlaying = 'setPlaying',
   TogglePlaying = 'togglePlaying',
@@ -26,6 +28,7 @@ export enum MapActionType {
 export type MapAction =
   | { type: MapActionType.SetData; value: Series }
   | { type: MapActionType.SetActiveIndex; value: number }
+  | { type: MapActionType.DecrActiveIndex }
   | { type: MapActionType.IncrActiveIndex }
   | { type: MapActionType.SetPlaying; value: boolean }
   | { type: MapActionType.TogglePlaying };
@@ -43,31 +46,30 @@ export const mapReducer: React.Reducer<MapState, MapAction> = (
     case MapActionType.SetActiveIndex:
       return {
         ...state,
-        activeIndex: action.value,
+        activeIndex: mod(action.value, state.data.summary.length),
       };
+    case MapActionType.DecrActiveIndex:
+      // Defer to the SetActiveIndex handler
+      return mapReducer(state, {
+        type: MapActionType.SetActiveIndex,
+        value: state.activeIndex - 1,
+      });
     case MapActionType.IncrActiveIndex:
-      const nextIndex = state.activeIndex + 1;
-      const dataLength = state.data!.summary.length;
+      // Defer to the SetActiveIndex handler
+      const nextState = mapReducer(state, {
+        type: MapActionType.SetActiveIndex,
+        value: state.activeIndex + 1,
+      });
 
-      if (nextIndex === dataLength - 1) {
-        // If this is the last interval, stop playing
+      // If this is the last interval, stop playing
+      if (nextState.activeIndex === state.data.summary.length - 1) {
         return {
-          ...state,
+          ...nextState,
           playing: false,
-          activeIndex: nextIndex,
-        };
-      } else if (nextIndex >= dataLength) {
-        // If we've overflowed, go back to the beginning
-        return {
-          ...state,
-          activeIndex: 0,
-        };
-      } else {
-        return {
-          ...state,
-          activeIndex: nextIndex,
         };
       }
+
+      return nextState;
     case MapActionType.SetPlaying:
       return {
         ...state,

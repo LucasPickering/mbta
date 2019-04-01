@@ -11,9 +11,12 @@ const typedStations = (stations as unknown) as StationSet;
 interface Props {}
 
 const MapVisualization: React.ComponentType<Props> = ({}) => {
-  const [{ data, activeIndex }] = useContext(MapContext);
-  // This component should only be rendered when data is defined
-  const { summary, stations: stationIntervals } = data!;
+  const [
+    {
+      data: { summary, stations: stationIntervals },
+      activeIndex,
+    },
+  ] = useContext(MapContext);
 
   // Convert the index to an actual time. We know the summary time slots are
   // sorted and contain all possible times.
@@ -25,7 +28,6 @@ const MapVisualization: React.ComponentType<Props> = ({}) => {
         <MapStation
           key={station.gtfs_id}
           station={station}
-          activeTime={activeTime}
           entries={stationIntervals[station.gtfs_id][activeTime]}
         />
       ))}

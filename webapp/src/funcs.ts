@@ -7,5 +7,9 @@ export function formatTime(time: number): string {
 }
 
 export function formatLines(lines: string[]): string {
-  return lines.map(capitalize).join(', ');
+  return lines.map(line => `${capitalize(line)} Line`).join(', ');
+}
+
+export function mod(a: number, b: number): number {
+  return ((a % b) + b) % b;
 }

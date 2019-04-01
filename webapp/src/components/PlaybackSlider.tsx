@@ -36,8 +36,13 @@ const useLocalStyles = makeStyles(({ spacing }: Theme) => ({
 interface Props {}
 
 const PlaybackSlider: React.ComponentType<Props> = ({}) => {
-  const [{ data, activeIndex }, dispatch] = useContext(MapContext);
-  const { summary: summaryIntervals } = data!;
+  const [
+    {
+      data: { summary: summaryIntervals },
+      activeIndex,
+    },
+    dispatch,
+  ] = useContext(MapContext);
   const localClasses = useLocalStyles();
 
   // Get the highest interval, to figure out how to scale each bar
