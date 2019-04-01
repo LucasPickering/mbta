@@ -38,7 +38,7 @@ class Command(BaseCommand):
                 reader = csv.DictReader(lines)
                 rows += reader
 
-        ## route_type = {0,1}: Light Rail, Subway, Metro
+        ## route_type = {0,1,3}: Light Rail, Subway, Metro, Bus
         ## location_type = 1: Stations
         ## https://developers.google.com/transit/gtfs/reference/
         stations = [s for s in get_stops(0) + get_stops(1) + get_stops(3) if s["attributes"]["location_type"]==1]
