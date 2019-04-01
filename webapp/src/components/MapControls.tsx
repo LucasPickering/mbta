@@ -2,8 +2,8 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import React, { useContext, useEffect, useRef } from 'react';
 
-import { formatTime } from '../funcs';
 import { MapActionType, MapContext } from '../state/map';
+import { formatTime, getEndTime } from '../util';
 import NextButton from './NextButton';
 import PlaybackSlider from './PlaybackSlider';
 import PlayPauseButton from './PlayPauseButton';
@@ -47,7 +47,9 @@ const MapControls: React.ComponentType<Props> = ({}) => {
       <PrevButton />
       <PlayPauseButton />
       <NextButton />
-      <Typography variant="display1">{formatTime(activeTime)}</Typography>
+      <Typography variant="display1">
+        {formatTime(activeTime)}-{formatTime(getEndTime(activeTime))}
+      </Typography>
     </Toolbar>
   );
 };

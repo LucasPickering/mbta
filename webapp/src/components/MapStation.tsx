@@ -2,8 +2,8 @@ import Typography from '@material-ui/core/Typography';
 import React from 'react';
 import { Circle, Marker } from 'react-leaflet';
 
-import { formatLines } from '../funcs';
 import { Station } from '../types';
+import { formatLines } from '../util';
 import Popup from './leaflet/Popup';
 
 const SIZE_FACTOR: number = 10;

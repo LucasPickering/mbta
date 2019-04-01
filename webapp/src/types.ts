@@ -1,9 +1,3 @@
-export interface Color {
-  r: number;
-  g: number;
-  b: number;
-}
-
 export interface Interval {
   start_time: number;
   entries: number;

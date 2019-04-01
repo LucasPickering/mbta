@@ -1,7 +1,7 @@
 import React from 'react';
 
 import data from '../data/composite.json';
-import { mod } from '../funcs';
+import { mod } from '../util';
 import { Series } from '../types';
 
 export interface MapState {
