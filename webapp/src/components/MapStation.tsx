@@ -54,7 +54,7 @@ const MapStation: React.ComponentType<Props> = ({
         <Popup position={position}>
           <Typography variant="h6">{name}</Typography>
           <Typography variant="subtitle2">{formatLines(lines)}</Typography>
-          <Typography>{entries} entries</Typography>
+          <Typography variant="subtitle1">{entries} entries</Typography>
         </Popup>
       </Marker>
 
