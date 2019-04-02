@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import { maxBy } from 'lodash-es';
 import React, { useContext } from 'react';
 
-import { MapActionType, MapContext } from '../state/map';
+import { MapActionType, MapContext } from '../../state/map';
 
 const POINTER_WIDTH = 1.5;
 const POINTER_HEIGHT = 0.2;

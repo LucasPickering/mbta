@@ -2,8 +2,8 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import React, { useContext, useEffect, useRef } from 'react';
 
-import { MapActionType, MapContext } from '../state/map';
-import { formatTime, getEndTime } from '../util';
+import { MapActionType, MapContext } from '../../state/map';
+import { formatTime, getEndTime } from '../../util';
 import NextButton from './NextButton';
 import PlaybackSlider from './PlaybackSlider';
 import PlayPauseButton from './PlayPauseButton';

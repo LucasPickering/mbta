@@ -1,9 +1,8 @@
 import React, { useContext } from 'react';
 
-import { MapContext } from '../state/map';
-import { StationsContext } from '../state/stations';
-import { StationSet } from '../types';
-import Map from './leaflet/Map';
+import { MapContext } from '../../state/map';
+import { StationsContext } from '../../state/stations';
+import Map from '../leaflet/Map';
 import MapStation from './MapStation';
 
 interface Props {}

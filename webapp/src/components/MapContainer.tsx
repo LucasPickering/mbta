@@ -4,8 +4,8 @@ import classNames from 'classnames';
 import React, { useReducer } from 'react';
 
 import { defaultMapState, MapContext, mapReducer } from '../state/map';
-import MapControls from './MapControls';
-import MapVisualization from './MapVisualization';
+import MapControls from './controls/MapControls';
+import MapVisualization from './viz/MapVisualization';
 
 const useLocalStyles = makeStyles(({  }: Theme) => ({
   root: {
