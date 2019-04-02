@@ -268,7 +268,7 @@
   "place-aport": {
     "gtfs_id": "place-aport",
     "name": "Airport",
-    "lines": ["blue", "silver"],
+    "lines": ["blue"],
     "lat": 42.374262,
     "lon": -71.030395
   },

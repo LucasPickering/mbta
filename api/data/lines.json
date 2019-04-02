@@ -7,7 +7,7 @@
   "place-crtst": ["silver"],
   "place-sstat": ["red", "silver"],
   "place-armnl": ["green"],
-  "place-aport": ["blue", "silver"],
+  "place-aport": ["blue"],
   "place-north": ["green", "orange"],
   "place-prmnl": ["green"],
   "place-ccmnl": ["orange"],
