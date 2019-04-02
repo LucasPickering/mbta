@@ -1,8 +1,9 @@
 import React from 'react';
 
 import data from '../data/composite.json';
-import { mod } from '../util';
 import { Series } from '../types';
+import { mod } from '../util';
+import { makeReducerContext } from './reducerContext';
 
 export interface MapState {
   data: Series;
@@ -82,9 +83,5 @@ export const mapReducer: React.Reducer<MapState, MapAction> = (
       };
   }
 };
-export type MapContextType = [MapState, React.Dispatch<MapAction>];
 
-export const MapContext = React.createContext<MapContextType>(
-  // This default value should never be used, it's just there to appease TS
-  {} as MapContextType
-);
+export const MapContext = makeReducerContext<MapState, MapAction>();
