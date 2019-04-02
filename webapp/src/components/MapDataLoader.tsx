@@ -3,6 +3,7 @@ import React, { useEffect, useReducer } from 'react';
 
 import { ApiActionType, defaultApiState } from '../state/api';
 import { StationsContext, stationsReducer } from '../state/stations';
+import Loading from './Loading';
 import MapContainer from './MapContainer';
 
 interface Props {}
@@ -28,7 +29,7 @@ const MapDataLoader: React.ComponentType<Props> = () => {
 
   return (
     <StationsContext.Provider value={[stationsState, stationsDispatch]}>
-      {stationsState.loading && 'Loading...'}
+      <Loading loading={stationsState.loading} />
       {stationsState.data && <MapContainer />}
     </StationsContext.Provider>
   );
