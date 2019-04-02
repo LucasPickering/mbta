@@ -1,16 +1,15 @@
 import React, { useContext } from 'react';
 
-import stations from '../data/stations.json';
 import { MapContext } from '../state/map';
+import { StationsContext } from '../state/stations';
 import { StationSet } from '../types';
 import Map from './leaflet/Map';
 import MapStation from './MapStation';
 
-const typedStations = (stations as unknown) as StationSet;
-
 interface Props {}
 
 const MapVisualization: React.ComponentType<Props> = ({}) => {
+  const [{ data: stations }] = useContext(StationsContext);
   const [
     {
       data: { summary, stations: stationIntervals },
@@ -24,7 +23,7 @@ const MapVisualization: React.ComponentType<Props> = ({}) => {
 
   return (
     <Map>
-      {Object.values(typedStations).map(station => (
+      {stations!.map(station => (
         <MapStation
           key={station.gtfs_id}
           station={station}

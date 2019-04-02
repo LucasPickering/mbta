@@ -3,7 +3,7 @@ import { ThemeProvider, useTheme } from '@material-ui/styles';
 import classNames from 'classnames';
 import React from 'react';
 
-import MapContainer from './MapContainer';
+import MapDataLoader from './MapDataLoader';
 
 const theme = createMuiTheme({
   palette: {
@@ -24,7 +24,7 @@ interface Props {}
 const App: React.ComponentType<Props> = () => (
   <ThemeProvider theme={theme}>
     <div className={classNames('full-size')}>
-      <MapContainer />
+      <MapDataLoader />
     </div>
   </ThemeProvider>
 );

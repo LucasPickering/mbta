@@ -26,10 +26,10 @@ export type ApiAction<T> =
   | { type: ApiActionType.Error; error: string };
 
 // Makes a reducer for the given data type
-export const makeApiReducer = <T>(): React.Reducer<
-  ApiState<T>,
-  ApiAction<T>
-> => (state, action) => {
+const makeApiReducer = <T>(): React.Reducer<ApiState<T>, ApiAction<T>> => (
+  state,
+  action
+) => {
   switch (action.type) {
     case ApiActionType.Request:
       return {
@@ -53,5 +53,7 @@ export const makeApiReducer = <T>(): React.Reducer<
   }
 };
 
-export const makeApiContext = <T>() =>
-  makeReducerContext<ApiState<T>, ApiAction<T>>();
+export const makeApiKit = <T>() => ({
+  reducer: makeApiReducer<T>(),
+  context: makeReducerContext<ApiState<T>, ApiAction<T>>(),
+});
