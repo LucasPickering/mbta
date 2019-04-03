@@ -11,17 +11,18 @@ services:
   api:
     build: ./api/
     image: mbta-api
-    command: sh -c "dockerize -wait tcp://db:5432 && ./manage.py runserver 0.0.0.0:8000"
+    command: sh -c "dockerize -wait tcp://db:5432 && ./manage.py migrate && gunicorn mbta.wsgi -b :8000"
     environment:
+      - DJANGO_SETTINGS_MODULE=mbta.settings.prod
       - DB_PASSWORD=root
+      - SECRET_KEY
     depends_on:
       - db
-  # webapp:
-  #   image: node:10-alpine
-  #   working_dir: /app/webapp
-  #   command: sh -c "npm install && npm start"
-  #   environment:
-  #     - NODE_ENV=development
-  #     - API_HOST=http://api:8000
-  #   ports:
-  #     - "3000:3000"
+
+  webserver:
+    build: ./webapp/
+    image: mbta-webserver
+    depends_on:
+      - api
+    ports:
+      - "80:80"

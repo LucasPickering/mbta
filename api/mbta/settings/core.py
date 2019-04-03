@@ -78,7 +78,7 @@ DATABASES = {
         "NAME": "mbta",
         "USER": "root",
         "PASSWORD": os.getenv("DB_PASSWORD", "root"),
-        "HOST": os.getenv("DB_HOSTNAME", "localhost"),
+        "HOST": os.getenv("DB_HOSTNAME", "db"),
         "PORT": "",
     }
 }
