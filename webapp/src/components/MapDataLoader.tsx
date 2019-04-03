@@ -1,8 +1,11 @@
-import axios from 'axios';
 import React, { useEffect, useReducer } from 'react';
 
-import { ApiActionType, defaultApiState } from '../state/api';
-import { StationsContext, stationsReducer } from '../state/stations';
+import { defaultApiState } from '../state/api';
+import {
+  StationsContext,
+  stationsFetcher,
+  stationsReducer,
+} from '../state/stations';
 import Loading from './Loading';
 import MapContainer from './MapContainer';
 
@@ -15,22 +18,14 @@ const MapDataLoader: React.ComponentType<Props> = () => {
   );
 
   // One-time request for station data
-  useEffect(() => {
-    stationsDispatch({ type: ApiActionType.Request });
-    axios
-      .get('/api/stations')
-      .then(response => {
-        stationsDispatch({ type: ApiActionType.Success, data: response.data });
-      })
-      .catch(err => {
-        stationsDispatch({ type: ApiActionType.Error, error: err });
-      });
-  }, []);
+  useEffect(() => stationsFetcher(stationsDispatch, {}), []);
 
   return (
     <StationsContext.Provider value={[stationsState, stationsDispatch]}>
-      <Loading loading={stationsState.loading} />
-      {stationsState.data && <MapContainer />}
+      <div className="full-size">
+        <Loading loading={stationsState.loading} />
+        {stationsState.data && <MapContainer />}
+      </div>
     </StationsContext.Provider>
   );
 };

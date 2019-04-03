@@ -1,7 +1,10 @@
-import { makeApiKit } from '../state/api';
+import { makeApiKit, UrlBuilder } from '../state/api';
 import { Station } from '../types';
+
+const urlBuilder: UrlBuilder<{}> = () => '/api/stations';
 
 export const {
   reducer: stationsReducer,
+  fetcher: stationsFetcher,
   context: StationsContext,
-} = makeApiKit<Station[]>();
+} = makeApiKit<{}, Station[]>(urlBuilder);

@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React from 'react';
 
 import { makeReducerContext } from './reducerContext';
@@ -53,7 +54,25 @@ const makeApiReducer = <T>(): React.Reducer<ApiState<T>, ApiAction<T>> => (
   }
 };
 
-export const makeApiKit = <T>() => ({
-  reducer: makeApiReducer<T>(),
-  context: makeReducerContext<ApiState<T>, ApiAction<T>>(),
+export type UrlBuilder<Params> = (params: Params) => string;
+
+const makeFetcher = <Params, Data>(urlBuilder: UrlBuilder<Params>) => (
+  dispatch: React.Dispatch<ApiAction<Data>>,
+  params: Params
+) => {
+  dispatch({ type: ApiActionType.Request });
+  axios
+    .get(urlBuilder(params))
+    .then(response => {
+      dispatch({ type: ApiActionType.Success, data: response.data });
+    })
+    .catch(err => {
+      dispatch({ type: ApiActionType.Error, error: err });
+    });
+};
+
+export const makeApiKit = <Params, Data>(urlBuilder: UrlBuilder<Params>) => ({
+  reducer: makeApiReducer<Data>(),
+  fetcher: makeFetcher<Params, Data>(urlBuilder),
+  context: makeReducerContext<ApiState<Data>, ApiAction<Data>>(),
 });
