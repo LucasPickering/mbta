@@ -18,12 +18,12 @@ export const defaultMapState: MapState = {
 };
 
 export enum MapActionType {
-  SetData = 'setData',
-  SetActiveIndex = 'setActiveIndex',
-  DecrActiveIndex = 'decrActiveIndex',
-  IncrActiveIndex = 'incrActiveIndex',
-  SetPlaying = 'setPlaying',
-  TogglePlaying = 'togglePlaying',
+  SetData,
+  SetActiveIndex,
+  DecrActiveIndex,
+  IncrActiveIndex,
+  SetPlaying,
+  TogglePlaying,
 }
 
 export type MapAction =

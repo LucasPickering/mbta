@@ -16,9 +16,9 @@ export const defaultApiState: ApiState<any> = {
 };
 
 export enum ApiActionType {
-  Request = 'request',
-  Success = 'success',
-  Error = 'error',
+  Request,
+  Success,
+  Error,
 }
 
 export type ApiAction<T> =

@@ -1,3 +1,19 @@
+export enum DayOfWeek {
+  Sunday = 'S',
+  Monday = 'M',
+  Tuesday = 'T',
+  Wednesday = 'W',
+  Thursday = 'R',
+  Friday = 'F',
+  Saturday = 'U',
+}
+
+export interface DateWildcard {
+  year?: string;
+  month?: string;
+  day?: string;
+}
+
 export interface Interval {
   start_time: number;
   entries: number;
