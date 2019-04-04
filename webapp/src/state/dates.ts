@@ -1,4 +1,3 @@
-import { xor } from 'lodash-es';
 import React from 'react';
 
 import { DateWildcard, DayOfWeek } from '../types';
@@ -17,13 +16,13 @@ export const defaultDatesState: DatesState = {
 };
 
 export enum DatesActionType {
-  ToggleDaysOfWeek,
+  SetDaysOfWeek,
   SetDateRange,
   SetWildcards,
 }
 
 export type DatesAction =
-  | { type: DatesActionType.ToggleDaysOfWeek; value: DayOfWeek[] }
+  | { type: DatesActionType.SetDaysOfWeek; value: DayOfWeek[] }
   | { type: DatesActionType.SetDateRange; value: [Date, Date] }
   | { type: DatesActionType.SetWildcards; value: DateWildcard[] };
 
@@ -32,11 +31,10 @@ export const datesReducer: React.Reducer<DatesState, DatesAction> = (
   action
 ) => {
   switch (action.type) {
-    case DatesActionType.ToggleDaysOfWeek:
-      console.log(state.daysOfWeek, action.value);
+    case DatesActionType.SetDaysOfWeek:
       return {
         ...state,
-        daysOfWeek: xor(state.daysOfWeek, action.value),
+        daysOfWeek: action.value,
       };
     case DatesActionType.SetDateRange:
       return {

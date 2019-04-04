@@ -1,15 +1,9 @@
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-import React, { useContext, useEffect, useReducer, useRef } from 'react';
+import React, { useContext, useEffect, useRef } from 'react';
 
-import {
-  DatesContext,
-  datesReducer,
-  defaultDatesState,
-} from '../../state/dates';
 import { MapActionType, MapContext } from '../../state/map';
 import { formatTime, getEndTime } from '../../util';
-import MapDateControls from './MapDateControls';
 import NextButton from './NextButton';
 import PlaybackSlider from './PlaybackSlider';
 import PlayPauseButton from './PlayPauseButton';
@@ -19,7 +13,7 @@ interface Props {}
 
 const PLAY_INTERVAL = 250;
 
-const MapControls: React.ComponentType<Props> = ({}) => {
+const PlaybackControls: React.ComponentType<Props> = ({}) => {
   const [
     {
       playing,
@@ -48,19 +42,16 @@ const MapControls: React.ComponentType<Props> = ({}) => {
   }, []);
 
   return (
-    <DatesContext.Provider value={useReducer(datesReducer, defaultDatesState)}>
-      <Toolbar style={{ justifyContent: 'center' }}>
-        <MapDateControls />
-        <PlaybackSlider />
-        <PrevButton />
-        <PlayPauseButton />
-        <NextButton />
-        <Typography variant="display1">
-          {formatTime(activeTime)}-{formatTime(getEndTime(activeTime))}
-        </Typography>
-      </Toolbar>
-    </DatesContext.Provider>
+    <Toolbar style={{ justifyContent: 'center' }}>
+      <PlaybackSlider />
+      <PrevButton />
+      <PlayPauseButton />
+      <NextButton />
+      <Typography variant="display1">
+        {formatTime(activeTime)}-{formatTime(getEndTime(activeTime))}
+      </Typography>
+    </Toolbar>
   );
 };
 
-export default MapControls;
+export default PlaybackControls;

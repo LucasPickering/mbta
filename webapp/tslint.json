@@ -4,6 +4,7 @@
   "jsRules": {},
   "rules": {
     "interface-name": false,
+    "match-default-export-name": true,
     "max-classes-per-file": false,
     "no-empty-interface": false,
     "no-constant-condition": true,

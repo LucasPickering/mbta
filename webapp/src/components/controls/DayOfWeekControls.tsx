@@ -1,4 +1,3 @@
-import Toolbar from '@material-ui/core/Toolbar';
 import ToggleButton from '@material-ui/lab/ToggleButton';
 import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup';
 import React, { useContext } from 'react';
@@ -18,25 +17,24 @@ const DAY_LABELS = {
 
 interface Props {}
 
-const MapControls: React.ComponentType<Props> = ({}) => {
+const DayOfWeekControls: React.ComponentType<Props> = ({}) => {
   const [{ daysOfWeek }, dispatch] = useContext(DatesContext);
 
   return (
-    <Toolbar style={{ justifyContent: 'center' }}>
-      <ToggleButtonGroup
-        value={daysOfWeek}
-        onChange={(_, day) =>
-          dispatch({ type: DatesActionType.ToggleDaysOfWeek, value: day })
-        }
-      >
-        {Object.entries(DAY_LABELS).map(([key, label]) => (
-          <ToggleButton key={key} value={key}>
-            {label}
-          </ToggleButton>
-        ))}
-      </ToggleButtonGroup>
-    </Toolbar>
+    <ToggleButtonGroup
+      value={daysOfWeek}
+      selected
+      onChange={(_, days) =>
+        dispatch({ type: DatesActionType.SetDaysOfWeek, value: days })
+      }
+    >
+      {Object.entries(DAY_LABELS).map(([key, label]) => (
+        <ToggleButton key={key} value={key}>
+          {label}
+        </ToggleButton>
+      ))}
+    </ToggleButtonGroup>
   );
 };
 
-export default MapControls;
+export default DayOfWeekControls;
