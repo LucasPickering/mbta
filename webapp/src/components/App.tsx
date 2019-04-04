@@ -1,6 +1,8 @@
+import DateFnsUtils from '@date-io/date-fns';
 import { createMuiTheme } from '@material-ui/core/styles';
-import { ThemeProvider, useTheme } from '@material-ui/styles';
+import { ThemeProvider } from '@material-ui/styles';
 import classNames from 'classnames';
+import { MuiPickersUtilsProvider } from 'material-ui-pickers';
 import React from 'react';
 
 import MapDataLoader from './MapDataLoader';
@@ -23,9 +25,11 @@ interface Props {}
 
 const App: React.ComponentType<Props> = () => (
   <ThemeProvider theme={theme}>
-    <div className={classNames('full-size')}>
-      <MapDataLoader />
-    </div>
+    <MuiPickersUtilsProvider utils={DateFnsUtils}>
+      <div className={classNames('full-size')}>
+        <MapDataLoader />
+      </div>
+    </MuiPickersUtilsProvider>
   </ThemeProvider>
 );
 

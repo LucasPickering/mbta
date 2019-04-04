@@ -6,6 +6,7 @@ import {
   datesReducer,
   defaultDatesState,
 } from '../../state/dates';
+import DateRangeControls from './DateRangeControls';
 import DayOfWeekControls from './DayOfWeekControls';
 
 interface Props {}
@@ -15,6 +16,7 @@ const DateControls: React.ComponentType<Props> = ({}) => {
     <DatesContext.Provider value={useReducer(datesReducer, defaultDatesState)}>
       <Toolbar>
         <DayOfWeekControls />
+        <DateRangeControls />
       </Toolbar>
     </DatesContext.Provider>
   );
