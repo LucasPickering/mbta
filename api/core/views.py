@@ -26,7 +26,6 @@ class EntriesIntervals(generics.ListAPIView):
         queryset = self.get_queryset()
         ## Perform filtering
         if "start_date" in request.GET:
-
             sd = request.GET["start_date"]
             ed = request.GET.get("end_date", sd)
 

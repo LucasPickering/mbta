@@ -1,5 +1,4 @@
 from rest_framework import serializers
-from django.db.models import Avg
 
 from . import models
 
@@ -16,12 +15,10 @@ class StationIntervalSerializer(serializers.ModelSerializer):
         exclude = ("id",)
 
 class StationSummarySerializer(serializers.Serializer):
-
     start_time = serializers.IntegerField()
     avg_entries = serializers.FloatField()
 
 class StationSpecificSerializer(serializers.Serializer):
-
     start_time = serializers.IntegerField()
     avg_entries = serializers.FloatField()
     station_id = serializers.CharField()
