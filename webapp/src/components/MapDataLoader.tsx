@@ -1,8 +1,13 @@
 import { Theme } from '@material-ui/core/styles';
 import { makeStyles } from '@material-ui/styles';
-import React, { useEffect, useReducer } from 'react';
 import classNames from 'classnames';
+import React, { useEffect, useReducer } from 'react';
 import { defaultApiState } from '../state/api';
+import {
+  IntervalsContext,
+  intervalsFetcher,
+  intervalsReducer,
+} from '../state/intervals';
 import {
   StationsContext,
   stationsFetcher,
@@ -27,16 +32,23 @@ const MapDataLoader: React.ComponentType<Props> = () => {
     stationsReducer,
     defaultApiState
   );
+  const [intervalsState, intervalsDispatch] = useReducer(
+    intervalsReducer,
+    defaultApiState
+  );
 
   // One-time request for station data
   useEffect(() => stationsFetcher(stationsDispatch, {}), []);
+  useEffect(() => intervalsFetcher(intervalsDispatch, {}), []); // TODO
 
   return (
     <StationsContext.Provider value={[stationsState, stationsDispatch]}>
-      <div className={classNames(localClasses.root, 'full-size')}>
-        <Loading loading={stationsState.loading} />
-        {stationsState.data && <MapContainer />}
-      </div>
+      <IntervalsContext.Provider value={[intervalsState, intervalsDispatch]}>
+        <div className={classNames(localClasses.root, 'full-size')}>
+          <Loading loading={stationsState.loading} />
+          {stationsState.data && intervalsState.data && <MapContainer />}
+        </div>
+      </IntervalsContext.Provider>
     </StationsContext.Provider>
   );
 };

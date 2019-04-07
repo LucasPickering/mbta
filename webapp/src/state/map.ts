@@ -10,8 +10,10 @@ export interface MapState {
   playing: boolean;
 }
 
-export const defaultMapState: MapState = {
-  data, // TODO
+export const defaultMapState: Pick<
+  MapState,
+  Exclude<keyof MapState, 'data'>
+> = {
   activeIndex: 0,
   playing: false,
 };
