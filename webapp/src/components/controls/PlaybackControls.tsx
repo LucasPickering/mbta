@@ -1,12 +1,20 @@
+import { Theme } from '@material-ui/core';
+import { makeStyles } from '@material-ui/styles';
 import React, { useContext, useEffect, useRef } from 'react';
 import Control from 'react-leaflet-control';
 
 import { MapActionType, MapContext } from '../../state/map';
 import IntervalDisplay from './IntervalDisplay';
-import NextButton from './NextButton';
+import PlaybackButtons from './PlaybackButtons';
 import PlaybackSlider from './PlaybackSlider';
-import PlayPauseButton from './PlayPauseButton';
-import PrevButton from './PrevButton';
+
+const useLocalStyles = makeStyles(({  }: Theme) => ({
+  topRightControl: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'end',
+  },
+}));
 
 interface Props {}
 
@@ -21,6 +29,7 @@ const PlaybackControls: React.ComponentType<Props> = ({}) => {
     },
     dispatch,
   ] = useContext(MapContext);
+  const localClasses = useLocalStyles();
 
   const activeTime = summary[activeIndex].start_time;
 
@@ -42,11 +51,9 @@ const PlaybackControls: React.ComponentType<Props> = ({}) => {
 
   return (
     <>
-      <Control position="topright">
+      <Control className={localClasses.topRightControl} position="topright">
         <IntervalDisplay activeTime={activeTime} />
-        <PrevButton />
-        <PlayPauseButton />
-        <NextButton />
+        <PlaybackButtons />
       </Control>
       <Control>
         <PlaybackSlider />

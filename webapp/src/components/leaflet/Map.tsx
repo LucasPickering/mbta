@@ -11,8 +11,6 @@ const BOUNDS = new LatLngBounds(
   [DEFAULT_CENTER.lat + RADIUS_LAT, DEFAULT_CENTER.lng + RADIUS_LNG]
 );
 
-interface Props {}
-
 const Map: React.ComponentType<React.ComponentProps<typeof LeafletMap>> = ({
   children,
   ...rest
