@@ -1,4 +1,5 @@
-import { capitalize, pad } from 'lodash-es';
+import { format } from 'date-fns';
+import { capitalize } from 'lodash-es';
 
 const INTERVAL_LENGTH = 15; // minutes
 
@@ -8,7 +9,8 @@ export function getHoursMinutes(time: number): [number, number] {
 
 export function formatTime(time: number): string {
   const [hours, minutes] = getHoursMinutes(time);
-  return `${hours}:${pad(minutes.toString(), 2, '0')}`;
+  const d = new Date(0, 0, 0, hours, minutes);
+  return format(d, 'h:mm aa');
 }
 
 export function getEndTime(startTime: number): number {
