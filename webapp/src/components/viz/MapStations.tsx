@@ -2,12 +2,11 @@ import React, { useContext } from 'react';
 
 import { MapContext } from '../../state/map';
 import { StationsContext } from '../../state/stations';
-import Map from '../leaflet/Map';
 import MapStation from './MapStation';
 
 interface Props {}
 
-const MapVisualization: React.ComponentType<Props> = ({}) => {
+const MapStations: React.ComponentType<Props> = ({}) => {
   const [{ data: stations }] = useContext(StationsContext);
   const [
     {
@@ -21,7 +20,7 @@ const MapVisualization: React.ComponentType<Props> = ({}) => {
   const activeTime = summary[activeIndex].start_time;
 
   return (
-    <Map>
+    <>
       {stations!.map(station => (
         <MapStation
           key={station.gtfs_id}
@@ -29,8 +28,8 @@ const MapVisualization: React.ComponentType<Props> = ({}) => {
           entries={stationIntervals[station.gtfs_id][activeTime]}
         />
       ))}
-    </Map>
+    </>
   );
 };
 
-export default MapVisualization;
+export default MapStations;

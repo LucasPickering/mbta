@@ -1,9 +1,8 @@
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
 import React, { useContext, useEffect, useRef } from 'react';
+import Control from 'react-leaflet-control';
 
 import { MapActionType, MapContext } from '../../state/map';
-import { formatTime, getEndTime } from '../../util';
+import IntervalDisplay from './IntervalDisplay';
 import NextButton from './NextButton';
 import PlaybackSlider from './PlaybackSlider';
 import PlayPauseButton from './PlayPauseButton';
@@ -42,15 +41,19 @@ const PlaybackControls: React.ComponentType<Props> = ({}) => {
   }, []);
 
   return (
-    <Toolbar style={{ justifyContent: 'center' }}>
-      <PlaybackSlider />
-      <PrevButton />
-      <PlayPauseButton />
-      <NextButton />
-      <Typography variant="display1">
-        {formatTime(activeTime)}-{formatTime(getEndTime(activeTime))}
-      </Typography>
-    </Toolbar>
+    <>
+      <Control position="topright">
+        <IntervalDisplay activeTime={activeTime} />
+      </Control>
+      <Control position="bottomleft">
+        <PrevButton />
+        <PlayPauseButton />
+        <NextButton />
+      </Control>
+      <Control position="bottomleft">
+        <PlaybackSlider />
+      </Control>
+    </>
   );
 };
 

@@ -1,5 +1,5 @@
 import Typography from '@material-ui/core/Typography';
-import Leaflet from 'leaflet';
+import L from 'leaflet';
 import { mapValues } from 'lodash-es';
 import React from 'react';
 import { Circle, Marker } from 'react-leaflet';
@@ -24,7 +24,7 @@ const LINE_ICONS = mapValues(
       'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-grey.png',
   },
   url =>
-    Leaflet.icon({
+    L.icon({
       iconUrl: url,
       shadowUrl:
         'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',

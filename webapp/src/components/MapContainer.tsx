@@ -6,7 +6,8 @@ import React, { useReducer } from 'react';
 import { defaultMapState, MapContext, mapReducer } from '../state/map';
 import DateControls from './controls/DateControls';
 import PlaybackControls from './controls/PlaybackControls';
-import MapVisualization from './viz/MapVisualization';
+import Map from './leaflet/Map';
+import MapStations from './viz/MapStations';
 
 const useLocalStyles = makeStyles(({  }: Theme) => ({
   root: {
@@ -22,11 +23,13 @@ const MapContainer: React.ComponentType<Props> = () => {
 
   return (
     <div className={classNames('full-size', localClasses.root)}>
-      <MapContext.Provider value={useReducer(mapReducer, defaultMapState)}>
-        <DateControls />
-        <PlaybackControls />
-        <MapVisualization />
-      </MapContext.Provider>
+      <Map>
+        <MapContext.Provider value={useReducer(mapReducer, defaultMapState)}>
+          <DateControls />
+          <PlaybackControls />
+          <MapStations />
+        </MapContext.Provider>
+      </Map>
     </div>
   );
 };

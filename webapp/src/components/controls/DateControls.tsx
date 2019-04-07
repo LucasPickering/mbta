@@ -6,6 +6,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import { makeStyles } from '@material-ui/styles';
 import classNames from 'classnames';
 import React, { useReducer, useState } from 'react';
+import Control from 'react-leaflet-control';
 
 import {
   DatesContext,
@@ -37,8 +38,7 @@ const DateControls: React.ComponentType<Props> = ({}) => {
 
   return (
     <DatesContext.Provider value={useReducer(datesReducer, defaultDatesState)}>
-      {/* Show the drawer button only if the drawer is closed */}
-      {drawerOpen || (
+      <Control position="topleft">
         <IconButton
           color="inherit"
           aria-label="Open drawer"
@@ -47,7 +47,7 @@ const DateControls: React.ComponentType<Props> = ({}) => {
         >
           <MenuIcon />
         </IconButton>
-      )}
+      </Control>
 
       <Drawer
         className={localClasses.drawer}
