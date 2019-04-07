@@ -18,9 +18,12 @@ const POINTER_POINTS = [
 
 const useLocalStyles = makeStyles(({ spacing }: Theme) => ({
   root: {
-    padding: spacing.unit,
-    width: '40%',
+    // padding: spacing.unit,
+    width: 1000,
     height: 60,
+    position: 'fixed',
+    bottom: 0,
+    left: 0,
   },
   unselected: {
     fill: '#aaaaaa',

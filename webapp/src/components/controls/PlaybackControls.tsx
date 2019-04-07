@@ -50,7 +50,7 @@ const PlaybackControls: React.ComponentType<Props> = ({}) => {
         <PlayPauseButton />
         <NextButton />
       </Control>
-      <Control position="bottomleft">
+      <Control>
         <PlaybackSlider />
       </Control>
     </>
