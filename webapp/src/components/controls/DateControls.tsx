@@ -15,11 +15,14 @@ import {
 import DateRangeControls from './DateRangeControls';
 import DayOfWeekControls from './DayOfWeekControls';
 
-const useLocalStyles = makeStyles(({  }: Theme) => ({
+const useLocalStyles = makeStyles(({ spacing }: Theme) => ({
   drawer: {},
   drawerHeader: {
     display: 'flex',
     justifyContent: 'end',
+  },
+  drawerBody: {
+    padding: spacing.unit,
   },
   hide: {
     display: 'none',
@@ -57,8 +60,10 @@ const DateControls: React.ComponentType<Props> = ({}) => {
             <ChevronLeftIcon />
           </IconButton>
         </div>
-        <DayOfWeekControls />
-        <DateRangeControls />
+        <div className={localClasses.drawerBody}>
+          <DayOfWeekControls />
+          <DateRangeControls />
+        </div>
       </Drawer>
     </DatesContext.Provider>
   );
