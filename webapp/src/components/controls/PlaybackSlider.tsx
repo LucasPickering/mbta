@@ -1,24 +1,12 @@
 import { Theme } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
-import classNames from 'classnames';
 import { maxBy } from 'lodash-es';
 import React, { useContext } from 'react';
 
 import { MapActionType, MapContext } from '../../state/map';
 
-const POINTER_WIDTH = 1.5;
-const POINTER_HEIGHT = 0.2;
-const POINTER_POINTS = [
-  [0, 0],
-  [POINTER_WIDTH / 2, POINTER_HEIGHT],
-  [-POINTER_WIDTH / 2, POINTER_HEIGHT],
-]
-  .map(p => p.join(','))
-  .join(' ');
-
-const useLocalStyles = makeStyles(({ spacing }: Theme) => ({
+const useLocalStyles = makeStyles(({  }: Theme) => ({
   root: {
-    // padding: spacing.unit,
     width: 1000,
     height: 60,
     position: 'fixed',
@@ -55,7 +43,7 @@ const PlaybackSlider: React.ComponentType<Props> = ({}) => {
   return (
     <svg
       className={localClasses.root}
-      viewBox={`0 0 ${summaryIntervals.length} ${1 + POINTER_HEIGHT}`}
+      viewBox={`0 0 ${summaryIntervals.length} 1`}
       preserveAspectRatio="none"
     >
       {summaryIntervals.map(({ start_time, entries }, i) => {
@@ -65,10 +53,9 @@ const PlaybackSlider: React.ComponentType<Props> = ({}) => {
         return (
           <g key={start_time}>
             <rect
-              className={classNames({
-                [localClasses.unselected]: !isActive,
-                [localClasses.selected]: isActive,
-              })}
+              className={
+                isActive ? localClasses.selected : localClasses.unselected
+              }
               x={i}
               y={1 - height}
               width={1}
@@ -78,13 +65,6 @@ const PlaybackSlider: React.ComponentType<Props> = ({}) => {
                 dispatch({ type: MapActionType.SetPlaying, value: false });
               }}
             />
-            {isActive && (
-              <polygon
-                className={localClasses.selected}
-                points={POINTER_POINTS}
-                transform={`translate(${i + 0.5} 1)`}
-              />
-            )}
           </g>
         );
       })}
