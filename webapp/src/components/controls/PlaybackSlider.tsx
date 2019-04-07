@@ -1,12 +1,15 @@
 import { Theme } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
+import classNames from 'classnames';
 import { maxBy } from 'lodash-es';
 import React, { useContext } from 'react';
 import { MapActionType, MapContext } from '../../state/map';
 
+// This height gets added to every bar, so the smallest bars are still visible
 const MIN_BAR_HEIGHT = 0.1;
+const SVG_VIEWPORT_HEIGHT = 1 + MIN_BAR_HEIGHT;
 
-const useLocalStyles = makeStyles(({  }: Theme) => ({
+const useLocalStyles = makeStyles(({ palette }: Theme) => ({
   root: {
     width: '100%',
     height: '10%',
@@ -14,14 +17,15 @@ const useLocalStyles = makeStyles(({  }: Theme) => ({
     bottom: 0,
     left: 0,
   },
-  unselected: {
-    fill: '#aaaaaa',
+  bar: {
+    cursor: 'pointer',
+    fill: palette.primary.main,
     '&:hover': {
-      fill: '#888888',
+      fill: palette.primary.light,
     },
   },
-  selected: {
-    fill: '#f4e242',
+  unselected: {
+    fillOpacity: 0.6,
   },
 }));
 
@@ -44,21 +48,23 @@ const PlaybackSlider: React.ComponentType<Props> = ({}) => {
   return (
     <svg
       className={localClasses.root}
-      viewBox={`0 0 ${summaryIntervals.length} 1`}
+      viewBox={`0 0 ${summaryIntervals.length} ${SVG_VIEWPORT_HEIGHT}`}
       preserveAspectRatio="none"
+      // Vertical invert. Makes the positioning of the bars simpler
+      transform={`translate(0,${SVG_VIEWPORT_HEIGHT}) scale(1,-1)`}
     >
       {summaryIntervals.map(({ start_time, entries }, i) => {
-        const height = Math.max(MIN_BAR_HEIGHT, entries / maxEntries);
+        const height = entries / maxEntries + MIN_BAR_HEIGHT;
         const isActive = i === activeIndex;
 
         return (
           <g key={start_time}>
             <rect
-              className={
-                isActive ? localClasses.selected : localClasses.unselected
-              }
+              className={classNames(
+                localClasses.bar,
+                !isActive && localClasses.unselected
+              )}
               x={i}
-              y={1 - height}
               width={1}
               height={height}
               onClick={() => {
