@@ -12,20 +12,15 @@ const SIZE_FACTOR: number = 25;
 
 const LINE_ICONS = mapValues(
   {
-    blue:
-      'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-blue.png',
-    green:
-      'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-green.png',
-    orange:
-      'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-orange.png',
-    red:
-      'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-red.png',
-    silver:
-      'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-grey.png',
+    blue: 'blue',
+    green: 'green',
+    orange: 'orange',
+    red: 'red',
+    silver: 'grey',
   },
-  url =>
+  color =>
     L.icon({
-      iconUrl: url,
+      iconUrl: `https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-${color}.png`,
       shadowUrl:
         'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
       iconSize: [13, 21],
@@ -44,9 +39,10 @@ const MapStation: React.ComponentType<Props> = ({
   station: { name, lat, lon, lines },
   entries,
 }) => {
+  const entriesNotNull = entries || 0;
   const position: [number, number] = [lat, lon];
   // sqrt the entries so that we scale the area instead of the radius
-  const circleRadius = Math.sqrt(entries || 0) * SIZE_FACTOR;
+  const circleRadius = Math.sqrt(entriesNotNull) * SIZE_FACTOR;
 
   return (
     <>
@@ -54,7 +50,9 @@ const MapStation: React.ComponentType<Props> = ({
         <Popup position={position}>
           <Typography variant="h6">{name}</Typography>
           <Typography variant="subtitle2">{formatLines(lines)}</Typography>
-          <Typography variant="subtitle1">{entries} entries</Typography>
+          <Typography variant="subtitle1">
+            {entriesNotNull.toFixed(1)} entries
+          </Typography>
         </Popup>
       </Marker>
 
