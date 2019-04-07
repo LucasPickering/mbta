@@ -5,6 +5,8 @@ import React, { useContext } from 'react';
 
 import { MapActionType, MapContext } from '../../state/map';
 
+const MIN_BAR_HEIGHT = 0.1;
+
 const useLocalStyles = makeStyles(({  }: Theme) => ({
   root: {
     width: '100%',
@@ -47,7 +49,7 @@ const PlaybackSlider: React.ComponentType<Props> = ({}) => {
       preserveAspectRatio="none"
     >
       {summaryIntervals.map(({ start_time, entries }, i) => {
-        const height = entries / maxEntries;
+        const height = Math.max(MIN_BAR_HEIGHT, entries / maxEntries);
         const isActive = i === activeIndex;
 
         return (
