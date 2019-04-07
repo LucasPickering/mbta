@@ -1,5 +1,4 @@
 import React from 'react';
-
 import data from '../data/composite.json';
 import { Series } from '../types';
 import { mod } from '../util';

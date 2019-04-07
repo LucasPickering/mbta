@@ -2,7 +2,6 @@ import { Theme } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 import React, { useContext, useEffect, useRef } from 'react';
 import Control from 'react-leaflet-control';
-
 import { MapActionType, MapContext } from '../../state/map';
 import IntervalDisplay from './IntervalDisplay';
 import PlaybackButtons from './PlaybackButtons';

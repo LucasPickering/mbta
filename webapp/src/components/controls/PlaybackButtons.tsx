@@ -1,5 +1,4 @@
 import React from 'react';
-
 import NextButton from './NextButton';
 import PlayPauseButton from './PlayPauseButton';
 import PrevButton from './PrevButton';

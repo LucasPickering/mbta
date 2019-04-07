@@ -1,7 +1,6 @@
 import ToggleButton from '@material-ui/lab/ToggleButton';
 import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup';
 import React, { useContext } from 'react';
-
 import { DatesActionType, DatesContext } from '../../state/dates';
 import { DayOfWeek } from '../../types';
 

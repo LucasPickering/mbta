@@ -1,5 +1,4 @@
 import React, { useReducer } from 'react';
-
 import { defaultMapState, MapContext, mapReducer } from '../state/map';
 import DateControls from './controls/DateControls';
 import PlaybackControls from './controls/PlaybackControls';

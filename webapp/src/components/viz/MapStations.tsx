@@ -1,5 +1,4 @@
 import React, { useContext } from 'react';
-
 import { MapContext } from '../../state/map';
 import { StationsContext } from '../../state/stations';
 import MapStation from './MapStation';

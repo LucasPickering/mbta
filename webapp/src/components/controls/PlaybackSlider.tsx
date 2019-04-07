@@ -2,7 +2,6 @@ import { Theme } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 import { maxBy } from 'lodash-es';
 import React, { useContext } from 'react';
-
 import { MapActionType, MapContext } from '../../state/map';
 
 const MIN_BAR_HEIGHT = 0.1;

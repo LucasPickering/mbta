@@ -1,7 +1,6 @@
 import { Theme } from '@material-ui/core/styles';
 import { makeStyles } from '@material-ui/styles';
 import React, { useEffect, useReducer } from 'react';
-
 import classNames from 'classnames';
 import { defaultApiState } from '../state/api';
 import {

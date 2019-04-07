@@ -1,6 +1,5 @@
 import axios from 'axios';
 import React from 'react';
-
 import { makeReducerContext } from './reducerContext';
 
 export interface ApiState<T> {

@@ -1,7 +1,6 @@
 import Paper from '@material-ui/core/Paper';
 import { DatePicker } from 'material-ui-pickers';
 import React, { useContext } from 'react';
-
 import {
   DatesActionType,
   DatesContext,

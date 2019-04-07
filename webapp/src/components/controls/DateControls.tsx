@@ -7,7 +7,6 @@ import { makeStyles } from '@material-ui/styles';
 import classNames from 'classnames';
 import React, { useReducer, useState } from 'react';
 import Control from 'react-leaflet-control';
-
 import {
   DatesContext,
   datesReducer,

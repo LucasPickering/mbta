@@ -4,7 +4,6 @@ import { ThemeProvider } from '@material-ui/styles';
 import classNames from 'classnames';
 import { MuiPickersUtilsProvider } from 'material-ui-pickers';
 import React from 'react';
-
 import MapDataLoader from './MapDataLoader';
 
 const theme = createMuiTheme({

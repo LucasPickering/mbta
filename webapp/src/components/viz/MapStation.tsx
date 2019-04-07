@@ -3,7 +3,6 @@ import L from 'leaflet';
 import { mapValues } from 'lodash-es';
 import React from 'react';
 import { Circle, Marker } from 'react-leaflet';
-
 import { Station } from '../../types';
 import { formatLines } from '../../util';
 import Popup from '../leaflet/Popup';

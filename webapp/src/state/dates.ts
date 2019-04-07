@@ -1,6 +1,5 @@
 import { parse } from 'date-fns';
 import React from 'react';
-
 import { DateWildcard, DayOfWeek } from '../types';
 import { makeReducerContext } from './reducerContext';
 
