@@ -12,7 +12,7 @@ export interface MapState {
 }
 
 export const defaultMapState: MapState = {
-  data: data.series1, // TODO
+  data, // TODO
   activeIndex: 0,
   playing: false,
 };

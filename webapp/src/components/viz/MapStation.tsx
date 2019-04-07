@@ -8,7 +8,7 @@ import { Station } from '../../types';
 import { formatLines } from '../../util';
 import Popup from '../leaflet/Popup';
 
-const SIZE_FACTOR: number = 50;
+const SIZE_FACTOR: number = 25;
 
 const LINE_ICONS = mapValues(
   {
