@@ -1,3 +1,4 @@
+import { CircularProgress } from '@material-ui/core';
 import { Theme } from '@material-ui/core/styles';
 import { makeStyles } from '@material-ui/styles';
 import React from 'react';
@@ -9,7 +10,7 @@ interface Props {
 }
 
 const Loading: React.ComponentType<Props> = React.memo(({ loading }) => {
-  return loading ? <div>Loading...</div> : <></>;
+  return loading ? <CircularProgress /> : <></>;
 });
 
 export default Loading;
