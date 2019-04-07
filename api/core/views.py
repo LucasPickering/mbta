@@ -24,12 +24,15 @@ class EntriesIntervals(generics.ListAPIView):
     def get(self, request, **kwargs):
      
         queryset = self.get_queryset()
-        ## Perform filtering
+        ## Perform filtering by start/end date
         if "start_date" in request.GET:
             sd = request.GET["start_date"]
             ed = request.GET.get("end_date", sd)
 
             queryset = queryset.filter(date__range=(sd, ed))
+        
+        elif "end_date" in request.GET:
+            queryset = queryset.filter(date=request.GET["end_date"])
         
         summary = queryset.values("start_time").annotate(avg_entries=Avg("entries"))
         stations = queryset.values("start_time", "station_id").annotate(avg_entries=Avg("entries"))
