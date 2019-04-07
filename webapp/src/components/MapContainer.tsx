@@ -1,4 +1,3 @@
-import { Theme } from '@material-ui/core/styles';
 import React, { useReducer } from 'react';
 
 import { defaultMapState, MapContext, mapReducer } from '../state/map';
@@ -11,7 +10,7 @@ interface Props {}
 
 const MapContainer: React.ComponentType<Props> = () => (
   <MapContext.Provider value={useReducer(mapReducer, defaultMapState)}>
-    <Map>
+    <Map attributionControl={false} zoomControl={false}>
       <DateControls />
       <PlaybackControls />
       <MapStations />

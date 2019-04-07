@@ -7,8 +7,8 @@ import { MapActionType, MapContext } from '../../state/map';
 
 const useLocalStyles = makeStyles(({  }: Theme) => ({
   root: {
-    width: 1000,
-    height: 60,
+    width: '100%',
+    height: '10%',
     position: 'fixed',
     bottom: 0,
     left: 0,

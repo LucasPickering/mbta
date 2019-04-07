@@ -44,8 +44,6 @@ const PlaybackControls: React.ComponentType<Props> = ({}) => {
     <>
       <Control position="topright">
         <IntervalDisplay activeTime={activeTime} />
-      </Control>
-      <Control position="bottomleft">
         <PrevButton />
         <PlayPauseButton />
         <NextButton />
