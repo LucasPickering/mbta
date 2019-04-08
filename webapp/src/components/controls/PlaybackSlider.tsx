@@ -34,7 +34,7 @@ interface Props {}
 const PlaybackSlider: React.ComponentType<Props> = ({}) => {
   const [
     {
-      data: { summary: summaryIntervals },
+      intervals: { summary: summaryIntervals },
       activeIndex,
     },
     dispatch,
@@ -42,8 +42,8 @@ const PlaybackSlider: React.ComponentType<Props> = ({}) => {
   const localClasses = useLocalStyles();
 
   // Get the highest interval, to figure out how to scale each bar
-  const maxEntries: number = maxBy(summaryIntervals, int => int.entries)!
-    .entries;
+  const maxEntries: number = maxBy(summaryIntervals, int => int.avg_entries)!
+    .avg_entries;
 
   return (
     <svg
@@ -53,8 +53,8 @@ const PlaybackSlider: React.ComponentType<Props> = ({}) => {
       // Vertical invert. Makes the positioning of the bars simpler
       transform={`translate(0,${SVG_VIEWPORT_HEIGHT}) scale(1,-1)`}
     >
-      {summaryIntervals.map(({ start_time, entries }, i) => {
-        const height = entries / maxEntries + MIN_BAR_HEIGHT;
+      {summaryIntervals.map(({ start_time, avg_entries }, i) => {
+        const height = avg_entries / maxEntries + MIN_BAR_HEIGHT;
         const isActive = i === activeIndex;
 
         return (

@@ -1,30 +1,54 @@
-import React, { useContext, useReducer } from 'react';
-import { IntervalsContext } from '../state/intervals';
-import { defaultMapState, MapContext, mapReducer } from '../state/map';
+import { Theme } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/styles';
+import React, { useEffect, useReducer } from 'react';
+import { defaultApiState } from '../state/api';
+import {
+  IntervalsContext,
+  intervalsFetcher,
+  intervalsReducer,
+} from '../state/intervals';
+import {
+  StationsContext,
+  stationsFetcher,
+  stationsReducer,
+} from '../state/stations';
 import DateControls from './controls/DateControls';
-import PlaybackControls from './controls/PlaybackControls';
 import Map from './leaflet/Map';
-import MapStations from './viz/MapStations';
+import Loading from './Loading';
+import MapDataConsumer from './viz/MapDataConsumer';
 
 interface Props {}
 
 const MapContainer: React.ComponentType<Props> = ({}) => {
-  const [{ data }] = useContext(IntervalsContext);
+  const [stationsState, stationsDispatch] = useReducer(
+    stationsReducer,
+    defaultApiState
+  );
+  const [intervalsState, intervalsDispatch] = useReducer(
+    intervalsReducer,
+    defaultApiState
+  );
 
-  if (data!.summary.length === 0) {
-    return <p>No data!</p>;
-  }
+  // One-time request for station data
+  useEffect(() => stationsFetcher(stationsDispatch, {}), []);
+  useEffect(() => intervalsFetcher(intervalsDispatch, {}), []); // TODO
 
   return (
-    <MapContext.Provider
-      value={useReducer(mapReducer, { ...defaultMapState, data: data! })}
-    >
-      <Map attributionControl={false} zoomControl={false}>
-        <DateControls />
-        <PlaybackControls />
-        <MapStations />
-      </Map>
-    </MapContext.Provider>
+    <StationsContext.Provider value={[stationsState, stationsDispatch]}>
+      <IntervalsContext.Provider value={[intervalsState, intervalsDispatch]}>
+        <Map attributionControl={false} zoomControl={false}>
+          <DateControls />
+
+          <Loading loading={stationsState.loading || intervalsState.loading} />
+          {stationsState.data && intervalsState.data && (
+            <MapDataConsumer
+              stations={stationsState.data}
+              intervals={intervalsState.data}
+            />
+          )}
+        </Map>
+      </IntervalsContext.Provider>
+    </StationsContext.Provider>
   );
 };
 

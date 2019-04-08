@@ -4,7 +4,7 @@ import { ThemeProvider } from '@material-ui/styles';
 import classNames from 'classnames';
 import { MuiPickersUtilsProvider } from 'material-ui-pickers';
 import React from 'react';
-import MapDataLoader from './MapDataLoader';
+import MapContainer from './MapContainer';
 
 const theme = createMuiTheme({
   palette: {
@@ -26,7 +26,7 @@ const App: React.ComponentType<Props> = () => (
   <ThemeProvider theme={theme}>
     <MuiPickersUtilsProvider utils={DateFnsUtils}>
       <div className={classNames('full-size')}>
-        <MapDataLoader />
+        <MapContainer />
       </div>
     </MuiPickersUtilsProvider>
   </ThemeProvider>

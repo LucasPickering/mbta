@@ -24,7 +24,7 @@ const PlaybackControls: React.ComponentType<Props> = ({}) => {
     {
       playing,
       activeIndex,
-      data: { summary },
+      intervals: { summary },
     },
     dispatch,
   ] = useContext(MapContext);

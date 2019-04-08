@@ -16,7 +16,7 @@ export interface DateWildcard {
 
 export interface Interval {
   start_time: number;
-  entries: number;
+  avg_entries: number;
 }
 
 export interface Station {

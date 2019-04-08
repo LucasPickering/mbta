@@ -1,18 +1,18 @@
 import React from 'react';
-import data from '../data/composite.json';
-import { Series } from '../types';
+import { Series, Station } from '../types';
 import { mod } from '../util';
 import { makeReducerContext } from './reducerContext';
 
 export interface MapState {
-  data: Series;
+  stations: Station[];
+  intervals: Series;
   activeIndex: number;
   playing: boolean;
 }
 
 export const defaultMapState: Pick<
   MapState,
-  Exclude<keyof MapState, 'data'>
+  Exclude<keyof MapState, 'stations' | 'intervals'>
 > = {
   activeIndex: 0,
   playing: false,
@@ -28,7 +28,6 @@ export enum MapActionType {
 }
 
 export type MapAction =
-  | { type: MapActionType.SetData; value: Series }
   | { type: MapActionType.SetActiveIndex; value: number }
   | { type: MapActionType.DecrActiveIndex }
   | { type: MapActionType.IncrActiveIndex }
@@ -40,15 +39,10 @@ export const mapReducer: React.Reducer<MapState, MapAction> = (
   action
 ) => {
   switch (action.type) {
-    case MapActionType.SetData:
-      return {
-        ...state,
-        data: action.value,
-      };
     case MapActionType.SetActiveIndex:
       return {
         ...state,
-        activeIndex: mod(action.value, state.data.summary.length),
+        activeIndex: mod(action.value, state.intervals.summary.length),
       };
     case MapActionType.DecrActiveIndex:
       // Defer to the SetActiveIndex handler
@@ -64,7 +58,7 @@ export const mapReducer: React.Reducer<MapState, MapAction> = (
       });
 
       // If this is the last interval, stop playing
-      if (nextState.activeIndex === state.data.summary.length - 1) {
+      if (nextState.activeIndex === state.intervals.summary.length - 1) {
         return {
           ...nextState,
           playing: false,

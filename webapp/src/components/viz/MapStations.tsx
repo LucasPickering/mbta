@@ -1,15 +1,14 @@
 import React, { useContext } from 'react';
 import { MapContext } from '../../state/map';
-import { StationsContext } from '../../state/stations';
 import MapStation from './MapStation';
 
 interface Props {}
 
 const MapStations: React.ComponentType<Props> = ({}) => {
-  const [{ data: stations }] = useContext(StationsContext);
   const [
     {
-      data: { summary, stations: stationIntervals },
+      stations,
+      intervals: { summary, stations: stationIntervals },
       activeIndex,
     },
   ] = useContext(MapContext);
