@@ -9,7 +9,7 @@ interface Props {
   intervals: Series;
 }
 
-const MapDataConsumer: React.ComponentType<Props> = ({
+const VizDataConsumer: React.ComponentType<Props> = ({
   stations,
   intervals,
 }) => (
@@ -25,4 +25,4 @@ const MapDataConsumer: React.ComponentType<Props> = ({
   </MapContext.Provider>
 );
 
-export default MapDataConsumer;
+export default VizDataConsumer;
