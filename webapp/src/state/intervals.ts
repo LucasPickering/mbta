@@ -4,7 +4,7 @@ import { makeApiKit, RequestBuilder } from '../state/api';
 import { Series } from '../types';
 import { DatesState } from './dates';
 
-const DATE_FORMAT = 'yyyy-mm-dd';
+const DATE_FORMAT = 'yyyy-MM-dd';
 
 interface QueryParams {
   days_of_week?: string;

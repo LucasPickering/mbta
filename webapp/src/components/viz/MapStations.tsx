@@ -19,13 +19,16 @@ const MapStations: React.ComponentType<Props> = ({}) => {
 
   return (
     <>
-      {stations!.map(station => (
-        <MapStation
-          key={station.gtfs_id}
-          station={station}
-          entries={stationIntervals[station.gtfs_id][activeTime]}
-        />
-      ))}
+      {stations.map(station => {
+        const stationInterval = stationIntervals[station.gtfs_id];
+        return (
+          <MapStation
+            key={station.gtfs_id}
+            station={station}
+            entries={stationInterval && stationInterval[activeTime]}
+          />
+        );
+      })}
     </>
   );
 };
