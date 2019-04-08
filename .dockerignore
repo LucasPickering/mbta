@@ -1,0 +1,7 @@
+# Exclude everything except the webapp/ and prod/ folders
+*
+!prod/
+!webapp/
+
+# Exclude node_modules
+node_modules/

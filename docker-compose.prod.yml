@@ -31,7 +31,9 @@ services:
       - logs:/var/log/gunicorn:rw
 
   webserver:
-    build: ./webapp/
+    build:
+      dockerfile: prod/Dockerfile
+      context: .
     image: mbta-webserver
     depends_on:
       - api

@@ -17,3 +17,11 @@ All these commands are run from within `api/`:
 ./manage.py insertstations  # Add stations to the DB
 ./manage.py insertdata data/*.csv  # Add CSV data to the DB (takes a long time)
 ```
+
+## Deployment
+
+Configure your prod host as a docker machine from your dev machine. Then, on your dev machine:
+
+```
+docker-compose -f docker-compose.prod.yml up --build -d
+```
