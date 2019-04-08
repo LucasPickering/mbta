@@ -1,10 +1,40 @@
-import { makeApiKit, UrlBuilder } from '../state/api';
+import { format } from 'date-fns';
+import { isEmpty } from 'lodash-es';
+import { makeApiKit, RequestBuilder } from '../state/api';
 import { Series } from '../types';
+import { DatesState } from './dates';
 
-const urlBuilder: UrlBuilder<{}> = () => '/api/intervals';
+const DATE_FORMAT = 'yyyy-mm-dd';
+
+interface QueryParams {
+  days_of_week?: string;
+  start_date?: string;
+  end_date?: string;
+}
+
+const requestBuilder: RequestBuilder<DatesState> = ({
+  daysOfWeek,
+  dateRange: [startDate, endDate],
+}) => {
+  const params: QueryParams = {};
+
+  if (!isEmpty(daysOfWeek)) {
+    params.days_of_week = daysOfWeek.join(',');
+  }
+
+  if (startDate) {
+    params.start_date = format(startDate, DATE_FORMAT);
+  }
+
+  if (endDate) {
+    params.end_date = format(endDate, DATE_FORMAT);
+  }
+
+  return ['/api/intervals', { params }];
+};
 
 export const {
   reducer: intervalsReducer,
   fetcher: intervalsFetcher,
   context: IntervalsContext,
-} = makeApiKit<{}, Series>(urlBuilder);
+} = makeApiKit<DatesState, Series>(requestBuilder);

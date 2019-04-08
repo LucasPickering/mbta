@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, { AxiosRequestConfig } from 'axios';
 import React from 'react';
 import { makeReducerContext } from './reducerContext';
 
@@ -53,15 +53,17 @@ const makeApiReducer = <T>(): React.Reducer<ApiState<T>, ApiAction<T>> => (
   }
 };
 
-export type UrlBuilder<Params> = (params: Params) => string;
+export type RequestBuilder<Params> = (
+  params: Params
+) => [string, AxiosRequestConfig?];
 
-const makeFetcher = <Params, Data>(urlBuilder: UrlBuilder<Params>) => (
+const makeFetcher = <Params, Data>(requestBuilder: RequestBuilder<Params>) => (
   dispatch: React.Dispatch<ApiAction<Data>>,
   params: Params
 ) => {
   dispatch({ type: ApiActionType.Request });
   axios
-    .get(urlBuilder(params))
+    .get(...requestBuilder(params))
     .then(response => {
       dispatch({ type: ApiActionType.Success, data: response.data });
     })
@@ -70,8 +72,10 @@ const makeFetcher = <Params, Data>(urlBuilder: UrlBuilder<Params>) => (
     });
 };
 
-export const makeApiKit = <Params, Data>(urlBuilder: UrlBuilder<Params>) => ({
+export const makeApiKit = <Params, Data>(
+  requestBuilder: RequestBuilder<Params>
+) => ({
   reducer: makeApiReducer<Data>(),
-  fetcher: makeFetcher<Params, Data>(urlBuilder),
+  fetcher: makeFetcher<Params, Data>(requestBuilder),
   context: makeReducerContext<ApiState<Data>, ApiAction<Data>>(),
 });

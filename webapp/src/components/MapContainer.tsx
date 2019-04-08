@@ -21,11 +21,12 @@ const MapContainer: React.ComponentType<Props> = ({}) => {
 
   // One-time request for station data
   useEffect(() => stationsFetcher(stationsDispatch, {}), []);
-  useEffect(() => intervalsFetcher(intervalsDispatch, {}), []); // TODO
 
   return (
     <Map attributionControl={false} zoomControl={false}>
-      <DateControls onView={console.log} />
+      <DateControls
+        onView={datesState => intervalsFetcher(intervalsDispatch, datesState)}
+      />
 
       <Loading loading={stationsState.loading || intervalsState.loading} />
       {stationsState.data && intervalsState.data && (
