@@ -10,58 +10,63 @@ import Control from 'react-leaflet-control';
 import {
   DatesContext,
   datesReducer,
+  DatesState,
   defaultDatesState,
 } from '../../state/dates';
+import useStyles from '../../useStyles';
 import DateRangeControls from './DateRangeControls';
 import DayOfWeekControls from './DayOfWeekControls';
+import LoadDataButton from './LoadDataButton';
 
 const useLocalStyles = makeStyles(({ spacing }: Theme) => ({
-  drawer: {},
-  drawerHeader: {
+  drawer: {
     display: 'flex',
-    justifyContent: 'end',
-  },
-  drawerBody: {
+    flexDirection: 'column',
+    alignItems: 'center',
     padding: spacing.unit,
+    '& > *': {
+      margin: spacing.unit,
+    },
   },
-  hide: {
-    display: 'none',
+  hideButton: {
+    alignSelf: 'end',
   },
 }));
 
-interface Props {}
+interface Props {
+  onView: (state: DatesState) => void;
+}
 
-const DateControls: React.ComponentType<Props> = ({}) => {
-  const [drawerOpen, setDrawerOpen] = useState<boolean>(false);
+const DateControls: React.ComponentType<Props> = ({ onView }) => {
+  const [drawerOpen, setDrawerOpen] = useState<boolean>(true);
+  const classes = useStyles();
   const localClasses = useLocalStyles();
 
   return (
     <DatesContext.Provider value={useReducer(datesReducer, defaultDatesState)}>
+      {/* The button on the map */}
       <Control position="topleft">
         <IconButton
           color="inherit"
           aria-label="Open drawer"
           onClick={() => setDrawerOpen(true)}
-          className={classNames(drawerOpen && localClasses.hide)}
+          className={classNames(drawerOpen && classes.hide)}
         >
           <MenuIcon />
         </IconButton>
       </Control>
 
-      <Drawer
-        className={localClasses.drawer}
-        variant="persistent"
-        anchor="left"
-        open={drawerOpen}
-      >
-        <div className={localClasses.drawerHeader}>
-          <IconButton onClick={() => setDrawerOpen(false)}>
+      <Drawer variant="persistent" anchor="left" open={drawerOpen}>
+        <div className={localClasses.drawer}>
+          <IconButton
+            className={localClasses.hideButton}
+            onClick={() => setDrawerOpen(false)}
+          >
             <ChevronLeftIcon />
           </IconButton>
-        </div>
-        <div className={localClasses.drawerBody}>
           <DayOfWeekControls />
           <DateRangeControls />
+          <LoadDataButton onView={onView} />
         </div>
       </Drawer>
     </DatesContext.Provider>

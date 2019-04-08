@@ -25,7 +25,7 @@ const MapContainer: React.ComponentType<Props> = ({}) => {
 
   return (
     <Map attributionControl={false} zoomControl={false}>
-      <DateControls />
+      <DateControls onView={console.log} />
 
       <Loading loading={stationsState.loading || intervalsState.loading} />
       {stationsState.data && intervalsState.data && (
