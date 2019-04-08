@@ -34,10 +34,14 @@ const useLocalStyles = makeStyles(({ spacing }: Theme) => ({
 }));
 
 interface Props {
+  intervalsLoading: boolean;
   onView: (state: DatesState) => void;
 }
 
-const DateControls: React.ComponentType<Props> = ({ onView }) => {
+const DateControls: React.ComponentType<Props> = ({
+  intervalsLoading,
+  onView,
+}) => {
   const [drawerOpen, setDrawerOpen] = useState<boolean>(true);
   const classes = useStyles();
   const localClasses = useLocalStyles();
@@ -66,7 +70,7 @@ const DateControls: React.ComponentType<Props> = ({ onView }) => {
           </IconButton>
           <DayOfWeekControls />
           <DateRangeControls />
-          <LoadDataButton onView={onView} />
+          <LoadDataButton loading={intervalsLoading} onView={onView} />
         </div>
       </Drawer>
     </DatesContext.Provider>

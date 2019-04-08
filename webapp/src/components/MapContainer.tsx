@@ -1,10 +1,10 @@
+import CircularProgress from '@material-ui/core/CircularProgress';
 import React, { useEffect, useReducer } from 'react';
 import { defaultApiState } from '../state/api';
 import { intervalsFetcher, intervalsReducer } from '../state/intervals';
 import { stationsFetcher, stationsReducer } from '../state/stations';
 import DateControls from './controls/DateControls';
 import Map from './leaflet/Map';
-import Loading from './Loading';
 import VizDataConsumer from './viz/VizDataConsumer';
 
 interface Props {}
@@ -25,10 +25,10 @@ const MapContainer: React.ComponentType<Props> = ({}) => {
   return (
     <Map attributionControl={false} zoomControl={false}>
       <DateControls
+        intervalsLoading={intervalsState.loading}
         onView={datesState => intervalsFetcher(intervalsDispatch, datesState)}
       />
 
-      <Loading loading={stationsState.loading || intervalsState.loading} />
       {stationsState.data && intervalsState.data && (
         <VizDataConsumer
           stations={stationsState.data}
