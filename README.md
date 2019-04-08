@@ -25,3 +25,5 @@ Configure your prod host as a docker machine from your dev machine. Then, on you
 ```
 docker-compose -f docker-compose.prod.yml up --build -d
 ```
+
+Don't forget to insert stations & data too.
