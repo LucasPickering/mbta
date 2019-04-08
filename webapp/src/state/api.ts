@@ -53,9 +53,14 @@ const makeApiReducer = <T>(): React.Reducer<ApiState<T>, ApiAction<T>> => (
   }
 };
 
-export type RequestBuilder<Params> = (
+interface RequestConfig<QueryParams> extends AxiosRequestConfig {
+  params?: QueryParams;
+}
+
+// We apply more restriction on the query params type, for safety!
+export type RequestBuilder<Params, QueryParams = {}> = (
   params: Params
-) => [string, AxiosRequestConfig?];
+) => [string, RequestConfig<QueryParams>?];
 
 const makeFetcher = <Params, Data>(requestBuilder: RequestBuilder<Params>) => (
   dispatch: React.Dispatch<ApiAction<Data>>,
@@ -72,8 +77,8 @@ const makeFetcher = <Params, Data>(requestBuilder: RequestBuilder<Params>) => (
     });
 };
 
-export const makeApiKit = <Params, Data>(
-  requestBuilder: RequestBuilder<Params>
+export const makeApiKit = <Params, Data, QueryParams = {}>(
+  requestBuilder: RequestBuilder<Params, QueryParams>
 ) => ({
   reducer: makeApiReducer<Data>(),
   fetcher: makeFetcher<Params, Data>(requestBuilder),

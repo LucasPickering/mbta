@@ -12,7 +12,7 @@ interface QueryParams {
   end_date?: string;
 }
 
-const requestBuilder: RequestBuilder<DatesState> = ({
+const requestBuilder: RequestBuilder<DatesState, QueryParams> = ({
   daysOfWeek,
   dateRange: [startDate, endDate],
 }) => {
