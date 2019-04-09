@@ -1,7 +1,7 @@
 import { parse } from 'date-fns';
 import React from 'react';
 import { DateWildcard, DayOfWeek } from '../types';
-import { makeReducerContext } from './reducerContext';
+import makeReducerContexts from './makeReducerContexts';
 
 // TODO: Load this from the API
 export const VALID_DATE_RANGE: [Date, Date] = [
@@ -71,4 +71,7 @@ export const datesReducer: React.Reducer<DatesState, DatesAction> = (
   }
 };
 
-export const DatesContext = makeReducerContext<DatesState, DatesAction>();
+export const [DatesStateContext, DatesDispatchContext] = makeReducerContexts<
+  DatesState,
+  DatesAction
+>();

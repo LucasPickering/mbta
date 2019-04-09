@@ -2,7 +2,11 @@ import { Theme } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 import React, { useContext, useEffect, useRef } from 'react';
 import Control from 'react-leaflet-control';
-import { MapActionType, MapContext } from '../../state/map';
+import {
+  MapActionType,
+  MapDispatchContext,
+  MapStateContext,
+} from '../../state/map';
 import IntervalDisplay from './IntervalDisplay';
 import PlaybackButtons from './PlaybackButtons';
 import PlaybackSlider from './PlaybackSlider';
@@ -20,14 +24,12 @@ interface Props {}
 const PLAY_INTERVAL = 250;
 
 const PlaybackControls: React.ComponentType<Props> = ({}) => {
-  const [
-    {
-      playing,
-      activeIndex,
-      intervals: { summary },
-    },
-    dispatch,
-  ] = useContext(MapContext);
+  const {
+    playing,
+    activeIndex,
+    intervals: { summary },
+  } = useContext(MapStateContext);
+  const dispatch = useContext(MapDispatchContext);
   const localClasses = useLocalStyles();
 
   const activeTime = summary[activeIndex].start_time;

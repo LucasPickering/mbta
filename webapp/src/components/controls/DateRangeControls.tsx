@@ -3,7 +3,8 @@ import { DatePicker } from 'material-ui-pickers';
 import React, { useContext } from 'react';
 import {
   DatesActionType,
-  DatesContext,
+  DatesDispatchContext,
+  DatesStateContext,
   VALID_DATE_RANGE,
 } from '../../state/dates';
 
@@ -22,12 +23,10 @@ const DatePickerHelper: React.ComponentType<
 );
 
 const DateRangeControls: React.ComponentType<Props> = ({}) => {
-  const [
-    {
-      dateRange: [startDate, endDate],
-    },
-    dispatch,
-  ] = useContext(DatesContext);
+  const {
+    dateRange: [startDate, endDate],
+  } = useContext(DatesStateContext);
+  const dispatch = useContext(DatesDispatchContext);
 
   // NOTE: date-fns uses null as empty but we use undefined, so we have to
   // convert back and forth in a few places

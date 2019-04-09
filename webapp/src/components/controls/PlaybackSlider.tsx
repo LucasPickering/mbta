@@ -3,7 +3,11 @@ import { makeStyles } from '@material-ui/styles';
 import classNames from 'classnames';
 import { maxBy } from 'lodash-es';
 import React, { useContext } from 'react';
-import { MapActionType, MapContext } from '../../state/map';
+import {
+  MapActionType,
+  MapDispatchContext,
+  MapStateContext,
+} from '../../state/map';
 
 // This height gets added to every bar, so the smallest bars are still visible
 const MIN_BAR_HEIGHT = 0.1;
@@ -32,13 +36,11 @@ const useLocalStyles = makeStyles(({ palette }: Theme) => ({
 interface Props {}
 
 const PlaybackSlider: React.ComponentType<Props> = ({}) => {
-  const [
-    {
-      intervals: { summary: summaryIntervals },
-      activeIndex,
-    },
-    dispatch,
-  ] = useContext(MapContext);
+  const {
+    intervals: { summary: summaryIntervals },
+    activeIndex,
+  } = useContext(MapStateContext);
+  const dispatch = useContext(MapDispatchContext);
   const localClasses = useLocalStyles();
 
   // Get the highest interval, to figure out how to scale each bar

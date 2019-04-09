@@ -1,7 +1,7 @@
 import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import React, { useContext } from 'react';
-import { DatesContext, DatesState } from '../../state/dates';
+import { DatesState, DatesStateContext } from '../../state/dates';
 
 interface Props {
   loading: boolean;
@@ -9,7 +9,7 @@ interface Props {
 }
 
 const LoadDataButton: React.ComponentType<Props> = ({ loading, onView }) => {
-  const [datesState] = useContext(DatesContext);
+  const datesState = useContext(DatesStateContext);
 
   return (
     <Button

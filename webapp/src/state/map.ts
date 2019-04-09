@@ -1,7 +1,7 @@
 import React from 'react';
 import { Series, Station } from '../types';
 import { mod } from '../util';
-import { makeReducerContext } from './reducerContext';
+import makeReducerContexts from './makeReducerContexts';
 
 export interface MapState {
   stations: Station[];
@@ -79,4 +79,7 @@ export const mapReducer: React.Reducer<MapState, MapAction> = (
   }
 };
 
-export const MapContext = makeReducerContext<MapState, MapAction>();
+export const [MapStateContext, MapDispatchContext] = makeReducerContexts<
+  MapState,
+  MapAction
+>();

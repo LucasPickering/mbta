@@ -36,5 +36,5 @@ const requestBuilder: RequestBuilder<DatesState, QueryParams> = ({
 export const {
   reducer: intervalsReducer,
   fetcher: intervalsFetcher,
-  context: IntervalsContext,
+  contexts: [IntervalsStateContext, IntervalsDispatchContext],
 } = makeApiKit<DatesState, Series>(requestBuilder);

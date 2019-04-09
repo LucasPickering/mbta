@@ -6,10 +6,12 @@ interface Props {
   activeTime: number;
 }
 
-const IntervalDisplay: React.ComponentType<Props> = ({ activeTime }) => (
-  <Typography variant="display1">
-    {formatTime(activeTime)}-{formatTime(getEndTime(activeTime))}
-  </Typography>
+const IntervalDisplay: React.ComponentType<Props> = React.memo(
+  ({ activeTime }) => (
+    <Typography variant="display1">
+      {formatTime(activeTime)}-{formatTime(getEndTime(activeTime))}
+    </Typography>
+  )
 );
 
 export default IntervalDisplay;

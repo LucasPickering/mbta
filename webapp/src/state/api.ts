@@ -1,6 +1,6 @@
 import axios, { AxiosRequestConfig } from 'axios';
 import React from 'react';
-import { makeReducerContext } from './reducerContext';
+import makeReducerContexts from './makeReducerContexts';
 
 export interface ApiState<T> {
   loading: boolean;
@@ -82,5 +82,5 @@ export const makeApiKit = <Params, Data, QueryParams = {}>(
 ) => ({
   reducer: makeApiReducer<Data>(),
   fetcher: makeFetcher<Params, Data>(requestBuilder),
-  context: makeReducerContext<ApiState<Data>, ApiAction<Data>>(),
+  contexts: makeReducerContexts<ApiState<Data>, ApiAction<Data>>(),
 });

@@ -1,17 +1,15 @@
 import React, { useContext } from 'react';
-import { MapContext } from '../../state/map';
+import { MapStateContext } from '../../state/map';
 import MapStation from './MapStation';
 
 interface Props {}
 
 const MapStations: React.ComponentType<Props> = ({}) => {
-  const [
-    {
-      stations,
-      intervals: { summary, stations: stationIntervals },
-      activeIndex,
-    },
-  ] = useContext(MapContext);
+  const {
+    stations,
+    intervals: { summary, stations: stationIntervals },
+    activeIndex,
+  } = useContext(MapStateContext);
 
   // Convert the index to an actual time. We know the summary time slots are
   // sorted and contain all possible times.

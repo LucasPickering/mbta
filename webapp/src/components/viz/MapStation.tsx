@@ -34,35 +34,34 @@ interface Props {
   entries?: number;
 }
 
-const MapStation: React.ComponentType<Props> = ({
-  station: { name, lat, lon, lines },
-  entries,
-}) => {
-  const entriesNotNull = entries || 0;
-  const position: [number, number] = [lat, lon];
-  // sqrt the entries so that we scale the area instead of the radius
-  const circleRadius = Math.sqrt(entriesNotNull) * SIZE_FACTOR;
+const MapStation: React.ComponentType<Props> = React.memo(
+  ({ station: { name, lat, lon, lines }, entries }) => {
+    const entriesNotNull = entries || 0;
+    const position: [number, number] = [lat, lon];
+    // sqrt the entries so that we scale the area instead of the radius
+    const circleRadius = Math.sqrt(entriesNotNull) * SIZE_FACTOR;
 
-  return (
-    <>
-      <Marker position={position} icon={LINE_ICONS[lines[0]]}>
-        <Popup position={position}>
-          <Typography variant="h6">{name}</Typography>
-          <Typography variant="subtitle2">{formatLines(lines)}</Typography>
-          <Typography variant="subtitle1">
-            {entriesNotNull.toFixed(1)} entries
-          </Typography>
-        </Popup>
-      </Marker>
+    return (
+      <>
+        <Marker position={position} icon={LINE_ICONS[lines[0]]}>
+          <Popup position={position}>
+            <Typography variant="h6">{name}</Typography>
+            <Typography variant="subtitle2">{formatLines(lines)}</Typography>
+            <Typography variant="subtitle1">
+              {entriesNotNull.toFixed(1)} entries
+            </Typography>
+          </Popup>
+        </Marker>
 
-      <Circle
-        center={position}
-        radius={circleRadius}
-        stroke={false}
-        color="black"
-      />
-    </>
-  );
-};
+        <Circle
+          center={position}
+          radius={circleRadius}
+          stroke={false}
+          color="black"
+        />
+      </>
+    );
+  }
+);
 
 export default MapStation;

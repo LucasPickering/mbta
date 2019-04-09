@@ -6,5 +6,5 @@ const requestBuilder: RequestBuilder<{}> = () => ['/api/stations'];
 export const {
   reducer: stationsReducer,
   fetcher: stationsFetcher,
-  context: StationsContext,
+  contexts: [StationsStateContext, StationsDispatchContext],
 } = makeApiKit<{}, Station[]>(requestBuilder);

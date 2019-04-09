@@ -1,7 +1,11 @@
 import ToggleButton from '@material-ui/lab/ToggleButton';
 import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup';
 import React, { useContext } from 'react';
-import { DatesActionType, DatesContext } from '../../state/dates';
+import {
+  DatesActionType,
+  DatesDispatchContext,
+  DatesStateContext,
+} from '../../state/dates';
 import { DayOfWeek } from '../../types';
 
 const DAY_LABELS = {
@@ -17,7 +21,8 @@ const DAY_LABELS = {
 interface Props {}
 
 const DayOfWeekControls: React.ComponentType<Props> = ({}) => {
-  const [{ daysOfWeek }, dispatch] = useContext(DatesContext);
+  const { daysOfWeek } = useContext(DatesStateContext);
+  const dispatch = useContext(DatesDispatchContext);
 
   return (
     <ToggleButtonGroup
