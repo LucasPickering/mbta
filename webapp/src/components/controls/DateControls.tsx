@@ -5,7 +5,7 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import MenuIcon from '@material-ui/icons/Menu';
 import { makeStyles } from '@material-ui/styles';
 import classNames from 'classnames';
-import React, { useReducer, useState } from 'react';
+import React, { useCallback, useReducer, useState } from 'react';
 import Control from 'react-leaflet-control';
 import {
   DatesDispatchContext,
@@ -51,6 +51,8 @@ const DateControls: React.ComponentType<Props> = ({
     datesReducer,
     defaultDatesState
   );
+  const openDrawer = useCallback(() => setDrawerOpen(true), [setDrawerOpen]);
+  const closeDrawer = useCallback(() => setDrawerOpen(false), [setDrawerOpen]);
 
   return (
     <DatesStateContext.Provider value={datesState}>
@@ -60,7 +62,7 @@ const DateControls: React.ComponentType<Props> = ({
           <IconButton
             color="inherit"
             aria-label="Open drawer"
-            onClick={() => setDrawerOpen(true)}
+            onClick={openDrawer}
             className={classNames(drawerOpen && classes.hide)}
           >
             <MenuIcon />
@@ -71,7 +73,7 @@ const DateControls: React.ComponentType<Props> = ({
           <div className={localClasses.drawer}>
             <IconButton
               className={localClasses.hideButton}
-              onClick={() => setDrawerOpen(false)}
+              onClick={closeDrawer}
             >
               <ChevronLeftIcon />
             </IconButton>

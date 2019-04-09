@@ -1,5 +1,4 @@
-import CircularProgress from '@material-ui/core/CircularProgress';
-import React, { useEffect, useReducer } from 'react';
+import React, { useCallback, useEffect, useReducer } from 'react';
 import { defaultApiState } from '../state/api';
 import { intervalsFetcher, intervalsReducer } from '../state/intervals';
 import { stationsFetcher, stationsReducer } from '../state/stations';
@@ -21,13 +20,14 @@ const MapContainer: React.ComponentType<Props> = ({}) => {
 
   // One-time request for station data
   useEffect(() => stationsFetcher(stationsDispatch, {}), []);
+  const onView = useCallback(
+    datesState => intervalsFetcher(intervalsDispatch, datesState),
+    [intervalsDispatch]
+  );
 
   return (
     <Map attributionControl={false} zoomControl={false}>
-      <DateControls
-        intervalsLoading={intervalsState.loading}
-        onView={datesState => intervalsFetcher(intervalsDispatch, datesState)}
-      />
+      <DateControls intervalsLoading={intervalsState.loading} onView={onView} />
 
       {stationsState.data && intervalsState.data && (
         <VizDataConsumer
