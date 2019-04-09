@@ -20,10 +20,36 @@ All these commands are run from within `api/`:
 
 ## Deployment
 
-Configure your prod host as a docker machine from your dev machine. Then, on your dev machine:
+### Building & Pushing Images
+
+The production system pulls images down instead of building them itself. You'll have to build and push them locally. To push, you have to make a user on [Docker Hub](https://hub.docker.com/), get added to the `insh2102mbta` organization.
+
+#### Database
+
+The DB image can be built and pushed with:
 
 ```
-docker-compose -f docker-compose.prod.yml up --build -d
+docker login
+prod/build_db.sh
+docker push insh2102mbta/db:latest
 ```
 
-Don't forget to insert stations & data too.
+This will take a while, but we only have to do it when we change models or get new data.
+
+#### API & Webserver
+
+```
+docker login
+docker-compose -f docker-compose.build.sh build
+docker-compose -f docker-compose.build.yml push
+```
+
+### Deploying
+
+On the deployment machine:
+
+```
+docker login
+docker-compose -f docker-compose.prod.yml pull
+docker-compose -f docker-compose.prod.yml up -d
+```

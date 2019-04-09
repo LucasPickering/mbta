@@ -1,0 +1,14 @@
+# This file is just to make it easier to build/push the prod images
+
+version: "3"
+
+services:
+  api:
+    build: ./api/
+    image: insh2102mbta/api:latest
+
+  webserver:
+    build:
+      dockerfile: prod/webserver.Dockerfile
+      context: .
+    image: insh2102mbta/webserver:latest

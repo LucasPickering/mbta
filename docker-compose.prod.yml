@@ -2,22 +2,18 @@ version: "3"
 
 volumes:
   logs:
-  db:
 
 services:
   db:
-    image: lucaspickering/mbta-db:latest
+    image: insh2102mbta/db:latest
     environment:
       - POSTGRES_DB=mbta
       - POSTGRES_USER=root
       - POSTGRES_PASSWORD=root
-      - POSTGRES_DATA_DIR
-    volumes:
-      - db:/var/lib/postgresql/data:rw
+      - PGDATA=/app/postgres
 
   api:
-    build: ./api/
-    image: mbta-api
+    image: insh2102mbta/api:latest
     command: sh -c "dockerize -wait tcp://db:5432 && ./manage.py migrate && gunicorn mbta.wsgi -b :8000 --log-file /var/log/gunicorn/gunicorn.log --access-logfile /var/log/gunicorn/gunicorn_access.log"
     environment:
       - DJANGO_SETTINGS_MODULE=mbta.settings.prod
@@ -31,10 +27,7 @@ services:
       - logs:/var/log/gunicorn:rw
 
   webserver:
-    build:
-      dockerfile: prod/Dockerfile
-      context: .
-    image: mbta-webserver
+    image: insh2102mbta/webserver:latest
     depends_on:
       - api
     ports:
