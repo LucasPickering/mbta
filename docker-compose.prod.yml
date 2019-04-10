@@ -14,7 +14,7 @@ services:
 
   api:
     image: insh2102mbta/api:latest
-    command: sh -c "dockerize -wait tcp://db:5432 && ./manage.py migrate && gunicorn mbta.wsgi -b :8000 --log-file /var/log/gunicorn/gunicorn.log --access-logfile /var/log/gunicorn/gunicorn_access.log"
+    command: sh -c "dockerize -wait tcp://db:5432 -timeout 30s && ./manage.py migrate && gunicorn mbta.wsgi -b :8000 --log-file /var/log/gunicorn/gunicorn.log --access-logfile /var/log/gunicorn/gunicorn_access.log"
     environment:
       - DJANGO_SETTINGS_MODULE=mbta.settings.prod
       - DB_HOSTNAME=db
