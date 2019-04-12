@@ -7,8 +7,6 @@ services:
     build: ./api/
     image: insh2102mbta/api:latest
 
-  webserver:
-    build:
-      dockerfile: prod/webserver.Dockerfile
-      context: .
-    image: insh2102mbta/webserver:latest
+  static:
+    build: ./webapp/
+    image: insh2102mbta/static:latest

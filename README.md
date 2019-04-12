@@ -36,7 +36,7 @@ docker push insh2102mbta/db:latest
 
 This will take a while, but we only have to do it when we change models or get new data.
 
-#### API & Webserver
+#### API & Static Files
 
 ```
 docker login
@@ -46,10 +46,4 @@ docker-compose -f docker-compose.build.yml push
 
 ### Deploying
 
-On the deployment machine:
-
-```
-docker login
-docker-compose -f docker-compose.prod.yml pull
-docker-compose -f docker-compose.prod.yml up -d
-```
+Deployed through [Keskne](https://github.com/LucasPickering/keskne).
