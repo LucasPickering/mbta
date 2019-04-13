@@ -1,7 +1,7 @@
 import os
 from .core import *
 
-ALLOWED_HOSTS = ["mbta_api"]
+ALLOWED_HOSTS = ["mbta-api"]
 
 DEBUG = False
 SECRET_KEY = os.getenv(
