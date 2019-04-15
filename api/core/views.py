@@ -60,4 +60,3 @@ class DateRange(generics.ListAPIView):
         serializer = self.serializer_class(daterange)
 
         return Response(serializer.data)
-        

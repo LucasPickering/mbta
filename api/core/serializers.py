@@ -35,4 +35,3 @@ class StationResponseSerializer(serializers.Serializer):
 class DateRangeSerializer(serializers.Serializer):
     min_date = serializers.DateField()
     max_date = serializers.DateField()
-    
