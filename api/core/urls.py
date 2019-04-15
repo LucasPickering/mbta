@@ -5,4 +5,5 @@ from . import views
 urlpatterns = [
     url(r"^stations", views.StationsView.as_view()),
     url(r"^intervals", views.EntriesIntervals.as_view()),
+    url(r"^daterange", views.DateRange.as_view()),
 ]

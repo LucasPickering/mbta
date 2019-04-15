@@ -1,6 +1,6 @@
 from rest_framework import generics
 from rest_framework.response import Response
-from django.db.models import Avg
+from django.db.models import Avg, Min, Max
 
 from . import models, serializers
 
@@ -42,4 +42,21 @@ class EntriesIntervals(generics.ListAPIView):
         serializer = self.serializer_class(
             {"summary": summary, "stations": stations}
         )
+        return Response(serializer.data)
+
+
+class DateRange(generics.ListAPIView):
+    queryset = models.StationInterval.objects.all()
+    serializer_class = serializers.DateRangeSerializer
+
+    def get(self, request, **kwargs):
+        queryset = self.get_queryset()
+
+        daterange = queryset.aggregate(
+                max_date=Max("date"), 
+                min_date=Min("date")
+                )
+
+        serializer = self.serializer_class(daterange)
+
         return Response(serializer.data)

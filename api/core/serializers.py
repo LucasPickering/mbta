@@ -31,3 +31,7 @@ class StationSpecificSerializer(serializers.Serializer):
 class StationResponseSerializer(serializers.Serializer):
     summary = StationSummarySerializer(many=True)
     stations = StationSpecificSerializer()
+
+class DateRangeSerializer(serializers.Serializer):
+    min_date = serializers.DateField()
+    max_date = serializers.DateField()
