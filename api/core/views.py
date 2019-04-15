@@ -17,7 +17,7 @@ class EntriesIntervals(generics.ListAPIView):
 
     def get(self, request, **kwargs):
         queryset = self.get_queryset()
-        # Perform filtering by start/end date and day of week
+        
         if "start_date" in request.GET:
             sd = request.GET["start_date"]
             ed = request.GET.get("end_date", sd)
