@@ -1,4 +1,5 @@
 import axios, { AxiosRequestConfig } from 'axios';
+import { identity } from 'lodash-es';
 import React from 'react';
 import makeReducerContexts from './makeReducerContexts';
 
@@ -62,25 +63,45 @@ export type RequestBuilder<Params, QueryParams = {}> = (
   params: Params
 ) => [string, RequestConfig<QueryParams>?];
 
-const makeFetcher = <Params, Data>(requestBuilder: RequestBuilder<Params>) => (
-  dispatch: React.Dispatch<ApiAction<Data>>,
-  params: Params
-) => {
+export type DataTransformer<InputData, OutputData> = (
+  data: InputData
+) => OutputData;
+
+const makeFetcher = <Params, ApiData, ContextData>(
+  requestBuilder: RequestBuilder<Params>,
+  // Optional param to transform data before storing it
+  dataTransformer: DataTransformer<ApiData, ContextData>
+) => (dispatch: React.Dispatch<ApiAction<ContextData>>, params: Params) => {
   dispatch({ type: ApiActionType.Request });
   axios
     .get(...requestBuilder(params))
     .then(response => {
-      dispatch({ type: ApiActionType.Success, data: response.data });
+      dispatch({
+        type: ApiActionType.Success,
+        data: dataTransformer(response.data),
+      });
     })
     .catch(err => {
       dispatch({ type: ApiActionType.Error, error: err });
     });
 };
 
-export const makeApiKit = <Params, Data, QueryParams = {}>(
-  requestBuilder: RequestBuilder<Params, QueryParams>
+export const makeApiKit = <
+  Params,
+  ApiData,
+  ContextData = ApiData,
+  QueryParams = {}
+>(
+  requestBuilder: RequestBuilder<Params, QueryParams>,
+  dataTransformer: DataTransformer<ApiData, ContextData> = identity
 ) => ({
-  reducer: makeApiReducer<Data>(),
-  fetcher: makeFetcher<Params, Data>(requestBuilder),
-  contexts: makeReducerContexts<ApiState<Data>, ApiAction<Data>>(),
+  reducer: makeApiReducer<ContextData>(),
+  fetcher: makeFetcher<Params, ApiData, ContextData>(
+    requestBuilder,
+    dataTransformer
+  ),
+  contexts: makeReducerContexts<
+    ApiState<ContextData>,
+    ApiAction<ContextData>
+  >(),
 });

@@ -14,7 +14,6 @@ import {
   DatesStateContext,
   defaultDatesState,
 } from '../../state/dates';
-import { DateRange } from '../../types';
 import useStyles from '../../useStyles';
 import DateRangeControls from './DateRangeControls';
 import DayOfWeekControls from './DayOfWeekControls';
@@ -36,7 +35,7 @@ const useLocalStyles = makeStyles(({ spacing }: Theme) => ({
 }));
 
 interface Props {
-  validDateRange: DateRange;
+  validDateRange: [Date, Date];
   intervalsLoading: boolean;
   onView: (state: DatesState) => void;
 }

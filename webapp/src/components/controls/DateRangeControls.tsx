@@ -23,7 +23,7 @@ const DatePickerHelper: React.ComponentType<
 
 const DateRangeControls: React.ComponentType<Props> = ({}) => {
   const {
-    validDateRange: { min_date: validStartDate, max_date: validEndDate },
+    validDateRange: [validStartDate, validEndDate],
     dateRange: [startDate, endDate],
   } = useContext(DatesStateContext);
   const dispatch = useContext(DatesDispatchContext);

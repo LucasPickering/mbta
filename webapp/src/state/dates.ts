@@ -1,9 +1,9 @@
 import React from 'react';
-import { DateRange, DateWildcard, DayOfWeek } from '../types';
+import { DateWildcard, DayOfWeek } from '../types';
 import makeReducerContexts from './makeReducerContexts';
 
 export interface DatesState {
-  validDateRange: DateRange;
+  validDateRange: [Date, Date];
   daysOfWeek: DayOfWeek[];
   dateRange: [Date?, Date?];
   wildcards: DateWildcard[];

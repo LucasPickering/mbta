@@ -37,4 +37,4 @@ export const {
   reducer: intervalsReducer,
   fetcher: intervalsFetcher,
   contexts: [IntervalsStateContext, IntervalsDispatchContext],
-} = makeApiKit<DatesState, Series>(requestBuilder);
+} = makeApiKit<DatesState, Series, Series, QueryParams>(requestBuilder);
