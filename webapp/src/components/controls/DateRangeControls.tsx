@@ -5,7 +5,6 @@ import {
   DatesActionType,
   DatesDispatchContext,
   DatesStateContext,
-  VALID_DATE_RANGE,
 } from '../../state/dates';
 
 interface Props {}
@@ -24,6 +23,7 @@ const DatePickerHelper: React.ComponentType<
 
 const DateRangeControls: React.ComponentType<Props> = ({}) => {
   const {
+    validDateRange: { min_date: validStartDate, max_date: validEndDate },
     dateRange: [startDate, endDate],
   } = useContext(DatesStateContext);
   const dispatch = useContext(DatesDispatchContext);
@@ -36,8 +36,8 @@ const DateRangeControls: React.ComponentType<Props> = ({}) => {
       <DatePickerHelper
         label="Start Date"
         value={startDate || null}
-        minDate={VALID_DATE_RANGE[0]}
-        maxDate={endDate || VALID_DATE_RANGE[1]}
+        minDate={validStartDate}
+        maxDate={endDate || validEndDate}
         onChange={value =>
           dispatch({
             type: DatesActionType.SetDateRangeStart,
@@ -48,8 +48,8 @@ const DateRangeControls: React.ComponentType<Props> = ({}) => {
       <DatePickerHelper
         label="End Date"
         value={endDate || null}
-        minDate={startDate || VALID_DATE_RANGE[0]}
-        maxDate={VALID_DATE_RANGE[1]}
+        minDate={startDate || validStartDate}
+        maxDate={validEndDate}
         onChange={value =>
           dispatch({
             type: DatesActionType.SetDateRangeEnd,

@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useReducer } from 'react';
 import { defaultApiState } from '../state/api';
+import { dateRangeFetcher, dateRangeReducer } from '../state/dateRange';
 import { intervalsFetcher, intervalsReducer } from '../state/intervals';
 import { stationsFetcher, stationsReducer } from '../state/stations';
 import DateControls from './controls/DateControls';
@@ -13,13 +14,19 @@ const MapContainer: React.ComponentType<Props> = ({}) => {
     stationsReducer,
     defaultApiState
   );
+  const [dateRangeState, dateRangeDispatch] = useReducer(
+    dateRangeReducer,
+    defaultApiState
+  );
   const [intervalsState, intervalsDispatch] = useReducer(
     intervalsReducer,
     defaultApiState
   );
 
-  // One-time request for station data
+  // One-time requests for valid date range and station data
+  useEffect(() => dateRangeFetcher(dateRangeDispatch, {}), []);
   useEffect(() => stationsFetcher(stationsDispatch, {}), []);
+
   const onView = useCallback(
     datesState => intervalsFetcher(intervalsDispatch, datesState),
     [intervalsDispatch]
@@ -27,7 +34,13 @@ const MapContainer: React.ComponentType<Props> = ({}) => {
 
   return (
     <Map attributionControl={false} zoomControl={false}>
-      <DateControls intervalsLoading={intervalsState.loading} onView={onView} />
+      {dateRangeState.data && (
+        <DateControls
+          validDateRange={dateRangeState.data}
+          intervalsLoading={intervalsState.loading}
+          onView={onView}
+        />
+      )}
 
       {stationsState.data && intervalsState.data && (
         <VizDataConsumer

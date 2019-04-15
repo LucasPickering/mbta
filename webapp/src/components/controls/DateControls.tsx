@@ -14,6 +14,7 @@ import {
   DatesStateContext,
   defaultDatesState,
 } from '../../state/dates';
+import { DateRange } from '../../types';
 import useStyles from '../../useStyles';
 import DateRangeControls from './DateRangeControls';
 import DayOfWeekControls from './DayOfWeekControls';
@@ -35,11 +36,13 @@ const useLocalStyles = makeStyles(({ spacing }: Theme) => ({
 }));
 
 interface Props {
+  validDateRange: DateRange;
   intervalsLoading: boolean;
   onView: (state: DatesState) => void;
 }
 
 const DateControls: React.ComponentType<Props> = ({
+  validDateRange,
   intervalsLoading,
   onView,
 }) => {
@@ -47,10 +50,10 @@ const DateControls: React.ComponentType<Props> = ({
   const classes = useStyles();
   const localClasses = useLocalStyles();
 
-  const [datesState, datesDispatch] = useReducer(
-    datesReducer,
-    defaultDatesState
-  );
+  const [datesState, datesDispatch] = useReducer(datesReducer, {
+    validDateRange,
+    ...defaultDatesState,
+  });
   const openDrawer = useCallback(() => setDrawerOpen(true), [setDrawerOpen]);
   const closeDrawer = useCallback(() => setDrawerOpen(false), [setDrawerOpen]);
 

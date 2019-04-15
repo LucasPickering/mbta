@@ -1,21 +1,18 @@
-import { parse } from 'date-fns';
 import React from 'react';
-import { DateWildcard, DayOfWeek } from '../types';
+import { DateRange, DateWildcard, DayOfWeek } from '../types';
 import makeReducerContexts from './makeReducerContexts';
 
-// TODO: Load this from the API
-export const VALID_DATE_RANGE: [Date, Date] = [
-  parse('2013-01-01', 'yyyy-MM-dd', new Date()),
-  parse('2018-12-31', 'yyyy-MM-dd', new Date()),
-];
-
 export interface DatesState {
+  validDateRange: DateRange;
   daysOfWeek: DayOfWeek[];
   dateRange: [Date?, Date?];
   wildcards: DateWildcard[];
 }
 
-export const defaultDatesState: DatesState = {
+export const defaultDatesState: Pick<
+  DatesState,
+  Exclude<keyof DatesState, 'validDateRange'>
+> = {
   daysOfWeek: [],
   dateRange: [undefined, undefined],
   wildcards: [],

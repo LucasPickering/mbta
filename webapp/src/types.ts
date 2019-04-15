@@ -8,6 +8,12 @@ export enum DayOfWeek {
   Saturday = 'U',
 }
 
+// Only use for the daterange endpoint
+export interface DateRange {
+  min_date: Date;
+  max_date: Date;
+}
+
 export interface DateWildcard {
   year?: string;
   month?: string;
