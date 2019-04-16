@@ -6,6 +6,8 @@ from . import models, serializers
 
 DOW_MAP = {"S":1, "M":2, "T": 3, "W": 4, "R": 5, "F": 6, "U": 7}
 
+LINE_MAP = {"B": "blue", "G": "green","O":"orange", "R":"red",  "S": "silver"}
+
 class StationsView(generics.ListAPIView):
     queryset = models.Station.objects.all()
     serializer_class = serializers.StationSerializer
@@ -31,6 +33,11 @@ class EntriesIntervals(generics.ListAPIView):
             days = [DOW_MAP[d] for d in request.GET["days_of_week"].split(",") if d in DOW_MAP]
 
             queryset = queryset.filter(date__week_day__in=days)
+
+        if "lines" in request.GET:
+            lines = [LINE_MAP[l] for l in request.GET["lines"].split(",") if l in LINE_MAP]
+
+            queryset = queryset.filter(station__lines__overlap=lines)
 
         summary = queryset.values("start_time").annotate(
             avg_entries=Avg("entries")
