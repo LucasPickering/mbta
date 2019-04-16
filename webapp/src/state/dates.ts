@@ -6,7 +6,7 @@ export interface DatesState {
   validDateRange: [Date, Date];
   daysOfWeek: DayOfWeek[];
   dateRange: [Date?, Date?];
-  wildcards: DateWildcard[];
+  wildcards: DateWildcard[]; // Unused atm
 }
 
 export const defaultDatesState: Pick<

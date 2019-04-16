@@ -14,11 +14,6 @@ export interface DateWildcard {
   day?: string;
 }
 
-export interface Interval {
-  start_time: number;
-  avg_entries: number;
-}
-
 export interface Station {
   gtfs_id: string;
   name: string;
@@ -27,20 +22,15 @@ export interface Station {
   lon: number;
 }
 
-export interface StationSet {
-  [station: string]: Station;
-}
-
-export type IntervalSet = Interval[];
-export interface StationIntervals {
-  [station: string]: {
-    [startTime: string]: number;
-  };
+export interface IntervalSet {
+  [startTime: string]: number;
 }
 
 export interface Series {
   summary: IntervalSet;
-  stations: StationIntervals;
+  stations: {
+    [station: string]: IntervalSet;
+  };
 }
 
 export interface SeriesSet {

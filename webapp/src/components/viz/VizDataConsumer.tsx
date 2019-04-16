@@ -1,6 +1,7 @@
-import React, { useReducer } from 'react';
+import React, { useEffect, useReducer } from 'react';
 import {
   defaultMapState,
+  MapActionType,
   MapDispatchContext,
   mapReducer,
   MapStateContext,
@@ -11,18 +12,19 @@ import MapStations from './MapStations';
 
 interface Props {
   stations: Station[];
-  intervals: Series;
+  data?: Series;
 }
 
-const VizDataConsumer: React.ComponentType<Props> = ({
-  stations,
-  intervals,
-}) => {
+const VizDataConsumer: React.ComponentType<Props> = ({ stations, data }) => {
   const [mapState, mapDispatch] = useReducer(mapReducer, {
     ...defaultMapState,
     stations,
-    intervals,
   });
+
+  // When data changes, update it in our state
+  useEffect(() => mapDispatch({ type: MapActionType.SetData, value: data }), [
+    data,
+  ]);
 
   return (
     <MapStateContext.Provider value={mapState}>

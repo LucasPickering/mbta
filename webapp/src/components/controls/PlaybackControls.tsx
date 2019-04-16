@@ -24,15 +24,9 @@ interface Props {}
 const PLAY_INTERVAL = 250;
 
 const PlaybackControls: React.ComponentType<Props> = ({}) => {
-  const {
-    playing,
-    activeIndex,
-    intervals: { summary },
-  } = useContext(MapStateContext);
+  const { playing, data } = useContext(MapStateContext);
   const dispatch = useContext(MapDispatchContext);
   const localClasses = useLocalStyles();
-
-  const activeTime = summary[activeIndex].start_time;
 
   // We need this so that the setInterval closure can always access the current
   // value of playing. Otherwise, it would capture the value when the interval
@@ -50,17 +44,24 @@ const PlaybackControls: React.ComponentType<Props> = ({}) => {
     return () => clearInterval(interval);
   }, []);
 
-  return (
-    <>
-      <Control className={localClasses.topRightControl} position="topright">
-        <IntervalDisplay activeTime={activeTime} />
-        <PlaybackButtons />
-      </Control>
-      <Control>
-        <PlaybackSlider />
-      </Control>
-    </>
-  );
+  // If there is non-empty data, render the controls
+  if (data && data.activeInterval) {
+    const {
+      activeInterval: { time: activeTime },
+    } = data;
+    return (
+      <>
+        <Control className={localClasses.topRightControl} position="topright">
+          <IntervalDisplay activeTime={activeTime} />
+          <PlaybackButtons />
+        </Control>
+        <Control>
+          <PlaybackSlider />
+        </Control>
+      </>
+    );
+  }
+  return null;
 };
 
 export default PlaybackControls;

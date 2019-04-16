@@ -36,10 +36,7 @@ interface Props {
 
 const MapStation: React.ComponentType<Props> = React.memo(
   ({ station: { name, lat, lon, lines }, entries }) => {
-    const entriesNotNull = entries || 0;
     const position: [number, number] = [lat, lon];
-    // sqrt the entries so that we scale the area instead of the radius
-    const circleRadius = Math.sqrt(entriesNotNull) * SIZE_FACTOR;
 
     return (
       <>
@@ -47,18 +44,24 @@ const MapStation: React.ComponentType<Props> = React.memo(
           <Popup position={position}>
             <Typography variant="h6">{name}</Typography>
             <Typography variant="subtitle2">{formatLines(lines)}</Typography>
-            <Typography variant="subtitle1">
-              {entriesNotNull.toFixed(1)} entries
-            </Typography>
+            {/* If we have entry data, show it in the popup */}
+            {entries !== undefined && (
+              <Typography variant="subtitle1">
+                {entries.toFixed(1)} entries
+              </Typography>
+            )}
           </Popup>
         </Marker>
 
-        <Circle
-          center={position}
-          radius={circleRadius}
-          stroke={false}
-          color="black"
-        />
+        {entries && (
+          <Circle
+            center={position}
+            // sqrt the entries so that we scale the area instead of the radius
+            radius={Math.sqrt(entries) * SIZE_FACTOR}
+            stroke={false}
+            color="black"
+          />
+        )}
       </>
     );
   }

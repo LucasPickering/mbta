@@ -42,10 +42,10 @@ const MapContainer: React.ComponentType<Props> = ({}) => {
         />
       )}
 
-      {stationsState.data && intervalsState.data && (
+      {stationsState.data && (
         <VizDataConsumer
           stations={stationsState.data}
-          intervals={intervalsState.data}
+          data={intervalsState.data}
         />
       )}
     </Map>

@@ -1,7 +1,7 @@
 import IconButton from '@material-ui/core/IconButton';
 import PauseIcon from '@material-ui/icons/Pause';
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
-import React, { useContext, useCallback } from 'react';
+import React, { useCallback, useContext } from 'react';
 import {
   MapActionType,
   MapDispatchContext,
