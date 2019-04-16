@@ -8,7 +8,6 @@ import {
   MapStateContext,
 } from '../../state/map';
 
-const MAX_ENTRIES = 2200; // Global max for entries in an interval
 // This height gets added to every bar, so the smallest bars are still visible
 const MIN_BAR_HEIGHT = 0.1;
 const SVG_VIEWPORT_HEIGHT = 1 + MIN_BAR_HEIGHT;
@@ -48,6 +47,8 @@ const PlaybackSlider: React.ComponentType<Props> = ({}) => {
   } = data!;
   const { time: activeTime } = activeInterval!;
 
+  const maxEntries = Math.max(...Object.values(summary));
+
   return (
     <svg
       className={localClasses.root}
@@ -59,7 +60,7 @@ const PlaybackSlider: React.ComponentType<Props> = ({}) => {
       {times.map((time, i) => {
         // TODO: Will need to do a null check once we have multiple series
         const entries = summary[time];
-        const height = entries / MAX_ENTRIES + MIN_BAR_HEIGHT;
+        const height = entries / maxEntries + MIN_BAR_HEIGHT;
         const isActive = time === activeTime;
 
         return (
