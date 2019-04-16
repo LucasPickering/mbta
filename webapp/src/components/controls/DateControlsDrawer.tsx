@@ -1,8 +1,9 @@
 import { Theme } from '@material-ui/core';
 import Drawer from '@material-ui/core/Drawer';
+import Fab from '@material-ui/core/Fab';
 import IconButton from '@material-ui/core/IconButton';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import MenuIcon from '@material-ui/icons/Menu';
+import DateRangeIcon from '@material-ui/icons/DateRange';
 import { makeStyles } from '@material-ui/styles';
 import classNames from 'classnames';
 import React, { useCallback, useReducer, useState } from 'react';
@@ -15,9 +16,8 @@ import {
   defaultDatesState,
 } from '../../state/dates';
 import useStyles from '../../useStyles';
-import DateRangeControls from './DateRangeControls';
-import DayOfWeekControls from './DayOfWeekControls';
 import LoadDataButton from './LoadDataButton';
+import SeriesDateControls from './SeriesDateControls';
 
 const useLocalStyles = makeStyles(({ spacing }: Theme) => ({
   drawer: {
@@ -30,7 +30,7 @@ const useLocalStyles = makeStyles(({ spacing }: Theme) => ({
     },
   },
   hideButton: {
-    alignSelf: 'end',
+    alignSelf: 'start',
   },
 }));
 
@@ -40,12 +40,12 @@ interface Props {
   onView: (state: DatesState) => void;
 }
 
-const DateControls: React.ComponentType<Props> = ({
+const DateControlsDrawer: React.ComponentType<Props> = ({
   validDateRange,
   intervalsLoading,
   onView,
 }) => {
-  const [drawerOpen, setDrawerOpen] = useState<boolean>(true);
+  const [drawerOpen, setDrawerOpen] = useState<boolean>(false);
   const classes = useStyles();
   const localClasses = useLocalStyles();
 
@@ -61,14 +61,14 @@ const DateControls: React.ComponentType<Props> = ({
       <DatesDispatchContext.Provider value={datesDispatch}>
         {/* The button on the map */}
         <Control position="topleft">
-          <IconButton
-            color="inherit"
+          <Fab
+            color="primary"
             aria-label="Open drawer"
             onClick={openDrawer}
             className={classNames(drawerOpen && classes.hide)}
           >
-            <MenuIcon />
-          </IconButton>
+            <DateRangeIcon />
+          </Fab>
         </Control>
 
         <Drawer variant="persistent" anchor="left" open={drawerOpen}>
@@ -79,8 +79,7 @@ const DateControls: React.ComponentType<Props> = ({
             >
               <ChevronLeftIcon />
             </IconButton>
-            <DayOfWeekControls />
-            <DateRangeControls />
+            <SeriesDateControls />
             <LoadDataButton loading={intervalsLoading} onView={onView} />
           </div>
         </Drawer>
@@ -89,4 +88,4 @@ const DateControls: React.ComponentType<Props> = ({
   );
 };
 
-export default DateControls;
+export default DateControlsDrawer;

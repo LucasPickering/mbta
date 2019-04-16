@@ -3,7 +3,7 @@ import { defaultApiState } from '../state/api';
 import { dateRangeFetcher, dateRangeReducer } from '../state/dateRange';
 import { intervalsFetcher, intervalsReducer } from '../state/intervals';
 import { stationsFetcher, stationsReducer } from '../state/stations';
-import DateControls from './controls/DateControls';
+import DateControlsDrawer from './controls/DateControlsDrawer';
 import Map from './leaflet/Map';
 import VizDataConsumer from './viz/VizDataConsumer';
 
@@ -35,7 +35,7 @@ const MapContainer: React.ComponentType<Props> = ({}) => {
   return (
     <Map attributionControl={false} zoomControl={false}>
       {dateRangeState.data && (
-        <DateControls
+        <DateControlsDrawer
           validDateRange={dateRangeState.data}
           intervalsLoading={intervalsState.loading}
           onView={onView}

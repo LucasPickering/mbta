@@ -1,11 +1,16 @@
-import Paper from '@material-ui/core/Paper';
+import { Theme } from '@material-ui/core';
+import { makeStyles } from '@material-ui/styles';
 import { DatePicker } from 'material-ui-pickers';
-import React, { useContext } from 'react';
+import React, { useCallback, useContext } from 'react';
 import {
   DatesActionType,
   DatesDispatchContext,
   DatesStateContext,
 } from '../../state/dates';
+
+const useLocalStyles = makeStyles(({ spacing }: Theme) => ({
+  root: { paddingTop: spacing.unit },
+}));
 
 interface Props {}
 
@@ -22,6 +27,7 @@ const DatePickerHelper: React.ComponentType<
 );
 
 const DateRangeControls: React.ComponentType<Props> = ({}) => {
+  const localClasses = useLocalStyles();
   const {
     validDateRange: [validStartDate, validEndDate],
     dateRange: [startDate, endDate],
@@ -30,34 +36,45 @@ const DateRangeControls: React.ComponentType<Props> = ({}) => {
 
   // NOTE: date-fns uses null as empty but we use undefined, so we have to
   // convert back and forth in a few places
+  const startDateCallback = useCallback(
+    value =>
+      dispatch({
+        type: DatesActionType.SetDateRangeStart,
+        value: value || undefined,
+      }),
+    [dispatch]
+  );
+  const endDateCallback = useCallback(
+    value =>
+      dispatch({
+        type: DatesActionType.SetDateRangeEnd,
+        value: value || undefined,
+      }),
+    [dispatch]
+  );
 
   return (
-    <Paper>
+    <div className={localClasses.root}>
       <DatePickerHelper
         label="Start Date"
         value={startDate || null}
         minDate={validStartDate}
         maxDate={endDate || validEndDate}
-        onChange={value =>
-          dispatch({
-            type: DatesActionType.SetDateRangeStart,
-            value: value || undefined,
-          })
-        }
+        // If end date is defined, you can't clear the start date
+        clearable={!Boolean(endDate)}
+        onChange={startDateCallback}
       />
-      <DatePickerHelper
-        label="End Date"
-        value={endDate || null}
-        minDate={startDate || validStartDate}
-        maxDate={validEndDate}
-        onChange={value =>
-          dispatch({
-            type: DatesActionType.SetDateRangeEnd,
-            value: value || undefined,
-          })
-        }
-      />
-    </Paper>
+      {/* Only show end date if a start date has been selected */}
+      {startDate && (
+        <DatePickerHelper
+          label="End Date"
+          value={endDate || null}
+          minDate={startDate}
+          maxDate={validEndDate}
+          onChange={endDateCallback}
+        />
+      )}
+    </div>
   );
 };
 
