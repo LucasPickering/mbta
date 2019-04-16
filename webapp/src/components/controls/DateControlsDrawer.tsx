@@ -3,7 +3,7 @@ import Drawer from '@material-ui/core/Drawer';
 import Fab from '@material-ui/core/Fab';
 import IconButton from '@material-ui/core/IconButton';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import DateRangeIcon from '@material-ui/icons/DateRange';
+import BuildIcon from '@material-ui/icons/Build';
 import { makeStyles } from '@material-ui/styles';
 import classNames from 'classnames';
 import React, { useCallback, useReducer, useState } from 'react';
@@ -67,7 +67,7 @@ const DateControlsDrawer: React.ComponentType<Props> = ({
             onClick={openDrawer}
             className={classNames(drawerOpen && classes.hide)}
           >
-            <DateRangeIcon />
+            <BuildIcon />
           </Fab>
         </Control>
 
