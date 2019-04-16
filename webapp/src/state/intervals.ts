@@ -1,5 +1,4 @@
 import { format } from 'date-fns';
-import { isEmpty } from 'lodash-es';
 import { makeApiKit, RequestBuilder } from '../state/api';
 import { Series } from '../types';
 import { DatesState } from './dates';
@@ -18,9 +17,7 @@ const requestBuilder: RequestBuilder<DatesState, QueryParams> = ({
 }) => {
   const params: QueryParams = {};
 
-  if (!isEmpty(daysOfWeek)) {
-    params.days_of_week = daysOfWeek.join(',');
-  }
+  params.days_of_week = daysOfWeek.join(',');
 
   if (startDate) {
     params.start_date = format(startDate, DATE_FORMAT);

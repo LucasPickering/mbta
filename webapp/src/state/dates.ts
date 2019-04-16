@@ -13,7 +13,16 @@ export const defaultDatesState: Pick<
   DatesState,
   Exclude<keyof DatesState, 'validDateRange'>
 > = {
-  daysOfWeek: [],
+  // TS doesn't have a good way to get all values of an enum. RIP
+  daysOfWeek: [
+    DayOfWeek.Sunday,
+    DayOfWeek.Monday,
+    DayOfWeek.Tuesday,
+    DayOfWeek.Wednesday,
+    DayOfWeek.Thursday,
+    DayOfWeek.Friday,
+    DayOfWeek.Saturday,
+  ],
   dateRange: [undefined, undefined],
   wildcards: [],
 };
