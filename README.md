@@ -40,7 +40,7 @@ This will take a while, but we only have to do it when we change models or get n
 
 ```
 docker login
-docker-compose -f docker-compose.build.sh build
+docker-compose -f docker-compose.build.yml build
 docker-compose -f docker-compose.build.yml push
 ```
 
