@@ -8,10 +8,6 @@ import {
   DatesStateContext,
 } from '../../state/dates';
 
-const useLocalStyles = makeStyles(({ spacing }: Theme) => ({
-  root: { paddingTop: spacing.unit },
-}));
-
 interface Props {}
 
 // Just a convenience component to prevent having to write out common props
@@ -27,7 +23,6 @@ const DatePickerHelper: React.ComponentType<
 );
 
 const DateRangeControls: React.ComponentType<Props> = ({}) => {
-  const localClasses = useLocalStyles();
   const {
     validDateRange: [validStartDate, validEndDate],
     dateRange: [startDate, endDate],
@@ -54,7 +49,7 @@ const DateRangeControls: React.ComponentType<Props> = ({}) => {
   );
 
   return (
-    <div className={localClasses.root}>
+    <div>
       <DatePickerHelper
         label="Start Date"
         value={startDate || null}

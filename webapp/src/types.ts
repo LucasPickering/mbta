@@ -1,3 +1,11 @@
+export enum Line {
+  Blue = 'B',
+  Green = 'G',
+  Orange = 'O',
+  Red = 'R',
+  Silver = 'S',
+}
+
 export enum DayOfWeek {
   Sunday = 'S',
   Monday = 'M',

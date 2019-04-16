@@ -6,16 +6,20 @@ import { DatesState } from './dates';
 const DATE_FORMAT = 'yyyy-MM-dd';
 
 interface QueryParams {
+  lines?: string;
   days_of_week?: string;
   start_date?: string;
   end_date?: string;
 }
 
 const requestBuilder: RequestBuilder<DatesState, QueryParams> = ({
+  lines,
   daysOfWeek,
   dateRange: [startDate, endDate],
 }) => {
   const params: QueryParams = {};
+
+  params.lines = lines.join(',');
 
   params.days_of_week = daysOfWeek.join(',');
 

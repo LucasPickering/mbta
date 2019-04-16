@@ -1,9 +1,10 @@
 import React from 'react';
-import { DateWildcard, DayOfWeek } from '../types';
+import { DateWildcard, DayOfWeek, Line } from '../types';
 import makeReducerContexts from './makeReducerContexts';
 
 export interface DatesState {
   validDateRange: [Date, Date];
+  lines: Line[];
   daysOfWeek: DayOfWeek[];
   dateRange: [Date?, Date?];
   wildcards: DateWildcard[]; // Unused atm
@@ -14,6 +15,7 @@ export const defaultDatesState: Pick<
   Exclude<keyof DatesState, 'validDateRange'>
 > = {
   // TS doesn't have a good way to get all values of an enum. RIP
+  lines: [Line.Blue, Line.Green, Line.Orange, Line.Red, Line.Silver],
   daysOfWeek: [
     DayOfWeek.Sunday,
     DayOfWeek.Monday,
@@ -28,6 +30,7 @@ export const defaultDatesState: Pick<
 };
 
 export enum DatesActionType {
+  SetLines,
   SetDaysOfWeek,
   SetDateRange,
   SetDateRangeStart,
@@ -36,6 +39,7 @@ export enum DatesActionType {
 }
 
 export type DatesAction =
+  | { type: DatesActionType.SetLines; value: Line[] }
   | { type: DatesActionType.SetDaysOfWeek; value: DayOfWeek[] }
   | { type: DatesActionType.SetDateRange; value: [Date?, Date?] }
   | { type: DatesActionType.SetDateRangeStart; value?: Date }
@@ -47,6 +51,11 @@ export const datesReducer: React.Reducer<DatesState, DatesAction> = (
   action
 ) => {
   switch (action.type) {
+    case DatesActionType.SetLines:
+      return {
+        ...state,
+        lines: action.value,
+      };
     case DatesActionType.SetDaysOfWeek:
       return {
         ...state,

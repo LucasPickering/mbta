@@ -17,7 +17,7 @@ import {
 } from '../../state/dates';
 import useStyles from '../../useStyles';
 import LoadDataButton from './LoadDataButton';
-import SeriesDateControls from './SeriesDateControls';
+import SeriesControls from './SeriesControls';
 
 const useLocalStyles = makeStyles(({ spacing }: Theme) => ({
   drawer: {
@@ -79,7 +79,7 @@ const DateControlsDrawer: React.ComponentType<Props> = ({
             >
               <ChevronLeftIcon />
             </IconButton>
-            <SeriesDateControls />
+            <SeriesControls />
             <LoadDataButton loading={intervalsLoading} onView={onView} />
           </div>
         </Drawer>
