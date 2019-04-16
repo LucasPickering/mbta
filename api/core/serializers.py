@@ -11,13 +11,16 @@ class StationSerializer(serializers.ModelSerializer):
 
 
 class StationSummarySerializer(serializers.Serializer):
-    start_time = serializers.IntegerField()
-    avg_entries = serializers.FloatField()
+    def to_representation(self, data):
+        # Build a dict of {time: entries}
+        return {
+            interval["start_time"]: interval["avg_entries"] for interval in data
+        }
 
 
 class StationSpecificSerializer(serializers.Serializer):
     def to_representation(self, data):
-        # Build a dict: {station: {time: entries}}
+        # Build a dict of {station: {time: entries}}
         station_resp = defaultdict(dict)
         for interval in data:
             sid = interval["station_id"]
@@ -29,8 +32,9 @@ class StationSpecificSerializer(serializers.Serializer):
 
 
 class StationResponseSerializer(serializers.Serializer):
-    summary = StationSummarySerializer(many=True)
+    summary = StationSummarySerializer()
     stations = StationSpecificSerializer()
+
 
 class DateRangeSerializer(serializers.Serializer):
     min_date = serializers.DateField()
