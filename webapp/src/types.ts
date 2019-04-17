@@ -34,11 +34,13 @@ export interface IntervalSet {
   [startTime: string]: number;
 }
 
+export interface StationIntervals {
+  [station: string]: IntervalSet;
+}
+
 export interface Series {
   summary: IntervalSet;
-  stations: {
-    [station: string]: IntervalSet;
-  };
+  stations: StationIntervals;
 }
 
 export interface SeriesSet {

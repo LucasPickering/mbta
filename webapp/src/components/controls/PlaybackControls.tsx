@@ -10,6 +10,7 @@ import {
 import IntervalDisplay from './IntervalDisplay';
 import PlaybackButtons from './PlaybackButtons';
 import PlaybackSlider from './PlaybackSlider';
+import SeriesCsvButton from './SeriesCsvButton';
 
 const useLocalStyles = makeStyles(({  }: Theme) => ({
   topRightControl: {
@@ -54,6 +55,7 @@ const PlaybackControls: React.ComponentType<Props> = ({}) => {
         <Control className={localClasses.topRightControl} position="topright">
           <IntervalDisplay activeTime={activeTime} />
           <PlaybackButtons />
+          <SeriesCsvButton />
         </Control>
         <Control>
           <PlaybackSlider />

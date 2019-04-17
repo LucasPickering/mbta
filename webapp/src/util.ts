@@ -1,5 +1,5 @@
 import { format } from 'date-fns';
-import { capitalize } from 'lodash-es';
+import { capitalize, unzip } from 'lodash-es';
 
 const INTERVAL_LENGTH = 15; // minutes
 const TIME_FORMAT = 'h:mm aa';
@@ -24,4 +24,24 @@ export function formatLines(lines: string[]): string {
 
 export function mod(a: number, b: number): number {
   return ((a % b) + b) % b;
+}
+
+export function downloadCsv(
+  filename: string,
+  labels: string[],
+  data: string[][]
+) {
+  const rows = [labels, ...data];
+
+  // Join each row with commas, then join rows together with newlines
+  const bodyStr = rows.map(row => row.join(',')).join('\n');
+  const blob = new Blob([bodyStr], { type: 'text/csv;charset=utf-8;' });
+
+  // Ugh
+  const link = document.createElement('a');
+  link.setAttribute('href', URL.createObjectURL(blob));
+  link.setAttribute('download', `${filename}.csv`);
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
 }
