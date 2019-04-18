@@ -138,7 +138,7 @@ export const mapReducer: React.Reducer<MapState, MapAction> = (
     case MapActionType.TogglePlaying:
       return {
         ...state,
-        playing: false,
+        playing: !state.playing,
       };
   }
 };
