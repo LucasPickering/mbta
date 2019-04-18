@@ -5,8 +5,8 @@ version: "3"
 services:
   api:
     build: ./api/
-    image: insh2102mbta/api:latest
+    image: lucaspickering/krahv-api:latest
 
   static:
     build: ./webapp/
-    image: insh2102mbta/static:latest
+    image: lucaspickering/krahv-static:latest
