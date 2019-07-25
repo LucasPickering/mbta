@@ -1,6 +1,6 @@
 #!/bin/sh
 
-DB_TAG="lucaspickering/krahv-db:latest"
+DB_TAG="lucaspickering/mbta-db:latest"
 
 # Set up the DB with all the necessary data
 docker-compose run api sh -c ' \

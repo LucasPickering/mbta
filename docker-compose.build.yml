@@ -5,8 +5,8 @@ version: "3"
 services:
   api:
     build: ./api/
-    image: lucaspickering/krahv-api:latest
+    image: lucaspickering/mbta-api:latest
 
   static:
     build: ./webapp/
-    image: lucaspickering/krahv-static:latest
+    image: lucaspickering/mbta-static:latest
