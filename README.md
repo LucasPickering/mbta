@@ -1,15 +1,18 @@
 # MBTA
 
+Data visualizations of history MBTA data. Created for a project in INSH 2102 at Northeastern University.
+
 ## Dev Setup
 
 ```
 docker-compose up
-docker exec mbta_api_1 ./manage.py migrate
+docker exec -it mbta_api_1 sh
+./manage.py migrate
 ```
 
 ## Data Scripts
 
-All these commands are run from within `api/`:
+To load in more data, you'll have to download the new data then load it into the DB. All these commands are run from within `api/`:
 
 ```
 ./manage.py download  # Download CSVs, according to data/urls.json

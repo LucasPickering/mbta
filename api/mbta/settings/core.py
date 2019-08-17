@@ -40,7 +40,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
-    'debug_toolbar.middleware.DebugToolbarMiddleware',
+    "debug_toolbar.middleware.DebugToolbarMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -71,11 +71,11 @@ TEMPLATES = [
 WSGI_APPLICATION = "mbta.wsgi.application"
 
 DEBUG_TOOLBAR_PANELS = [
-    'debug_toolbar.panels.timer.TimerPanel',
-    'debug_toolbar.panels.settings.SettingsPanel',
-    'debug_toolbar.panels.request.RequestPanel',
-    'debug_toolbar.panels.sql.SQLPanel',
-    'debug_toolbar.panels.profiling.ProfilingPanel',
+    "debug_toolbar.panels.timer.TimerPanel",
+    "debug_toolbar.panels.settings.SettingsPanel",
+    "debug_toolbar.panels.request.RequestPanel",
+    "debug_toolbar.panels.sql.SQLPanel",
+    "debug_toolbar.panels.profiling.ProfilingPanel",
 ]
 
 # Database
@@ -84,11 +84,11 @@ DEBUG_TOOLBAR_PANELS = [
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": "mbta",
-        "USER": "root",
-        "PASSWORD": os.getenv("DB_PASSWORD", "root"),
+        "NAME": os.getenv("MBTA_DB", "mbta"),
+        "USER": os.getenv("MBTA_DB_USER", "root"),
+        "PASSWORD": os.getenv("MBTA_DB_PASSWORD", "root"),
         # Default to localhost for scripts
-        "HOST": os.getenv("DB_HOSTNAME", "localhost"),
+        "HOST": os.getenv("MBTA_DB_HOST", "localhost"),
         "PORT": "",
     }
 }

@@ -23,8 +23,8 @@ services:
     volumes:
       - ./api/:/app/api:rw
     environment:
-      - DB_HOSTNAME=db
-      - DB_PASSWORD=root
+      - MBTA_DB_HOST=db
+      - MBTA_DB_PASSWORD=root
     depends_on:
       - db
     ports:

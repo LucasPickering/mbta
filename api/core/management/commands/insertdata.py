@@ -9,8 +9,17 @@ class Command(BaseCommand):
 
     def add_arguments(self, parser):
         parser.add_argument("csvs", nargs="+")
+        parser.add_argument(
+            "--if-empty",
+            "-e",
+            action="store_true",
+            help="Only insert data if the table is empty",
+        )
 
     def handle(self, *args, csvs, **options):
+        if args.if_empty and models.StationInterval.objects.count():
+            return
+
         for csv_file in csvs:
             print(f"Loading {csv_file}...")
             with open(csv_file) as f:
