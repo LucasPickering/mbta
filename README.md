@@ -22,28 +22,10 @@ All these commands are run from within `api/`:
 
 ### Building & Pushing Images
 
-The production system pulls images down instead of building them itself. You'll have to build and push them locally. To push, you have to make a user on [Docker Hub](https://hub.docker.com/), get added to the `insh2102mbta` organization.
-
-#### Database
-
-The DB image can be built and pushed with:
+Deployed via [Keskne](https://github.com/LucasPickering/keskne).
 
 ```
 docker login
-prod/build_db.sh
-docker push insh2102mbta/db:latest
-```
-
-This will take a while, but we only have to do it when we change models or get new data.
-
-#### API & Static Files
-
-```
-docker login
-docker-compose -f docker-compose.build.yml build
+docker-compose -f docker-compose.build.yml build --pull
 docker-compose -f docker-compose.build.yml push
 ```
-
-### Deploying
-
-Deployed through [Keskne](https://github.com/LucasPickering/keskne).
