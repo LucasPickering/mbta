@@ -1,5 +1,8 @@
 import csv
+import math
+import sys
 from django.core.management.base import BaseCommand
+from itertools import islice
 
 from core import models
 
@@ -15,27 +18,42 @@ class Command(BaseCommand):
             action="store_true",
             help="Only insert data if the table is empty",
         )
+        parser.add_argument(
+            "--batch-size",
+            "-b",
+            type=int,
+            default=10000,
+            help="The number of rows to insert at a time",
+        )
 
-    def handle(self, *args, csvs, if_empty, **options):
+    def handle(self, *args, csvs, if_empty, batch_size, **options):
         if if_empty and models.StationInterval.objects.count():
             return
 
         for csv_file in csvs:
             print(f"Loading {csv_file}...")
             with open(csv_file) as f:
-                rows = list(csv.DictReader(f))
-
-            # Add all these objects to the list
-            objs = [
-                models.StationInterval(
-                    station_id=row["GTFS_STOP_ID"],
-                    date=row["DATE"],
-                    start_time=row["TIME_PERIOD"],
-                    entries=row["STATION_ENTRIES"],
+                # Create a lazy generator to iterate through the CSV
+                objs = (
+                    models.StationInterval(
+                        station_id=row["GTFS_STOP_ID"],
+                        date=row["DATE"],
+                        start_time=row["TIME_PERIOD"],
+                        entries=row["STATION_ENTRIES"],
+                    )
+                    for row in csv.DictReader(f)
                 )
-                for row in rows
-            ]
 
-            # Insert them all
-            models.StationInterval.objects.bulk_create(objs, batch_size=10000)
-            print(f"Inserted {len(objs)} rows")
+                # bulk_create casts its input to a list, so we have to wrap
+                # the generator in islice to keep it lazy
+                rows_inserted = 0
+                while True:
+                    sys.stdout.write(
+                        f"\r  Inserted {rows_inserted:,} rows ({math.ceil(rows_inserted / batch_size):,} batches)"
+                    )
+                    batch = list(islice(objs, batch_size))
+                    if not batch:
+                        break
+                    models.StationInterval.objects.bulk_create(batch)
+                    rows_inserted += len(batch)
+                print("")
