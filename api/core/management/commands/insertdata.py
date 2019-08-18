@@ -16,8 +16,8 @@ class Command(BaseCommand):
             help="Only insert data if the table is empty",
         )
 
-    def handle(self, *args, csvs, **options):
-        if args.if_empty and models.StationInterval.objects.count():
+    def handle(self, *args, csvs, if_empty, **options):
+        if if_empty and models.StationInterval.objects.count():
             return
 
         for csv_file in csvs:

@@ -16,8 +16,8 @@ class Command(BaseCommand):
             help="Only insert data if the table is empty",
         )
 
-    def handle(self, *args, data, **options):
-        if args.if_empty and models.Station.objects.count():
+    def handle(self, *args, data, if_empty, **options):
+        if if_empty and models.Station.objects.count():
             return
 
         with open(data) as f:
