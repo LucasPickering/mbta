@@ -22,4 +22,5 @@ COPY requirements.txt .
 RUN pip install -U -r requirements.txt
 COPY . .
 
-CMD ["./cmd.sh"]
+ENTRYPOINT ["./docker/entrypoint.sh"]
+CMD ["./docker/cmd.sh"]
